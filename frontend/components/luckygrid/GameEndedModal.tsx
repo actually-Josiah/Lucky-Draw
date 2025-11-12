@@ -35,7 +35,7 @@ export default function GameEndedModal({ game, winner, onClose }: GameEndedModal
         gravity={0.15} // slightly stronger downward pull
         wind={0.001} // straight down
         tweenDuration={6000}
-                colors={[
+        colors={[
           "#FFD700", // gold
           "#FFEC8B", // light gold
           "#FFFFFF", // white

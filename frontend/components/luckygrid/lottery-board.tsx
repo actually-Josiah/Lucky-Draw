@@ -40,7 +40,7 @@ const colors = [
   "bg-teal-500",
 ]
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001"
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function LotteryBoard({ gameData, picks }: LotteryBoardProps) {
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([])
@@ -105,7 +105,7 @@ const numbers = useMemo(() =>
     try {
       setIsSubmitting(true)
 
-      const response = await fetch(`${API_BASE_URL}/api/lucky-grid/pick`, {
+      const response = await fetch(`${API_URL}/api/lucky-grid/pick`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

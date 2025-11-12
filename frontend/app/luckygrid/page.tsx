@@ -30,7 +30,7 @@ interface Pick {
 }
 
 // NOTE: API URL
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001"
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function LuckyGridPage() {
   const [gameData, setGameData] = useState<GameData | null>(null)
@@ -53,7 +53,7 @@ export default function LuckyGridPage() {
     setError(null)
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/lucky-grid/active`)
+      const res = await fetch(`${API_URL}/api/lucky-grid/active`)
       const data = await res.json()
 
       if (!res.ok) throw new Error(data.error || "Failed to fetch game data.")
@@ -64,7 +64,7 @@ export default function LuckyGridPage() {
         setShowModal(false) // active game, hide modal
       } else {
         // No active game, fetch last revealed
-        const lastRes = await fetch(`${API_BASE_URL}/api/lucky-grid/last-revealed`)
+        const lastRes = await fetch(`${API_URL}/api/lucky-grid/last-revealed`)
         const lastData = await lastRes.json()
         if (lastData.game) {
           setGameData(lastData.game) // still show board
