@@ -42,7 +42,8 @@ app.set('supabase', supabase);
 // --- Middleware Setup ---
 const allowedOrigins = [
   "http://localhost:3000",
-  "http://10.21.136.216:3000"
+  "http://10.21.136.216:3000",
+  "https://homefoodstuffluckydraw.netlify.app"
 ];
 
 app.use(cors({
