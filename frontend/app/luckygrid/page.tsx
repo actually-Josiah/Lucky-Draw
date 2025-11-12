@@ -160,7 +160,7 @@ export default function LuckyGridPage() {
       {/* Lottery Board & Game Info */}
       <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <h1 className="text-3xl font-bold text-white mb-6 text-center">Lucky Grid Game</h1>
+          <h1 className="text-3xl font-bold text-white mb-6 text-center">TWA NA DI</h1>
           <LotteryBoard gameData={gameData} picks={picks} />
         </div>
         <div>

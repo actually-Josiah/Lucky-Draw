@@ -42,7 +42,7 @@ export default function Game() {
             className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer"
           />
           <Button className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer">
-            Lucky Fortune
+            Spin & Win
           </Button>
         </div>
 
@@ -60,7 +60,7 @@ export default function Game() {
             variant="outline"
             className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer"
           >
-            Test Your Luck
+            Twa Na Di
           </Button>
         </div>
       </div>
