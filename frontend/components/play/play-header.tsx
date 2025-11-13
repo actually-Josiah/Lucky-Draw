@@ -14,9 +14,25 @@ export default function PlayHeader() {
         Play our exciting game and compete with players worldwide. Test your skills and climb the leaderboard.
       </p>
       <div>
-      <Button onClick={handlePlayNow} className="bg-red-400 hover:bg-red-600 font-bold text-white mt-5 w-1/4 pt-8 pb-8 text-2xl cursor-pointer">
-              Play Now
-      </Button>
+<Button 
+  onClick={handlePlayNow} 
+  className="
+    bg-red-500 
+    hover:bg-red-400 
+    font-bold 
+    text-white 
+    mt-5 
+    w-full 
+    sm:w-1/4 
+    py-7 
+    sm:pt-8 
+    sm:pb-8 
+    text-2xl
+    cursor-pointer
+  "
+>
+  Play Now
+</Button>
       </div>
     </section>
   )

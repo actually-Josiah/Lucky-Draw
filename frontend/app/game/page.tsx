@@ -29,7 +29,7 @@ export default function Game() {
     // 🚀 FIXED: Added pt-20 (mobile) and sm:pt-28 (desktop) for Header spacing
     <main className="flex flex-col items-center justify-center min-h-screen bg-background p-4 pt-20 sm:p-8 sm:pt-28"> 
       <Header />
-      <h1 className="text-4xl font-bold text-foreground mb-8 text-center sm:mb-12">
+      <h1 className="text-2xl font-bold text-foreground mb-8 text-center sm:mb-12">
         Select your preferred game
       </h1>
 

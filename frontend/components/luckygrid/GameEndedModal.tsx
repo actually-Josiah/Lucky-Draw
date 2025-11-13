@@ -26,13 +26,12 @@ export default function GameEndedModal({ game, winner, onClose }: GameEndedModal
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 overflow-hidden">
-      {/* Confetti fills entire screen */}
       <Confetti
         width={windowSize.width}
         height={windowSize.height}
         numberOfPieces={250}
-        recycle={true} // infinite
-        gravity={0.15} // slightly stronger downward pull
+        recycle={true}
+        gravity={0.05}
         wind={0.001} // straight down
         tweenDuration={6000}
         colors={[
