@@ -54,17 +54,15 @@ export default function Game() {
         <div className="flex flex-col items-center gap-4 w-full">
           <Image
             onClick={gotogrid}
-            src="/lucky.png"
+            src="/play1.jpeg"
             alt="Twa Na Di Game"
             width={400} 
             height={400} 
-            className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer w-full h-auto"
-          />
+            className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer w-full h-auto"/>
           <Button
             onClick={gotogrid}
             variant="outline"
-            className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer"
-          >
+            className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer">
             Twa Na Di
           </Button>
         </div>

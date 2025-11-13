@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 const images = [
   // Updated with different placeholder paths
-  { id: 1, title: "Game Challenge 1", image: "/caro1.png" },
+  { id: 1, title: "Wo Suro A Wondi", image: "/maincaro1.jpeg" },
   { id: 2, title: "Game Challenge 2", image: "/caro4.png" },
   { id: 3, title: "Game Challenge 3", image: "/caro2.png" },
   { id: 4, title: "Game Challenge 4", image: "/caro3.png" },

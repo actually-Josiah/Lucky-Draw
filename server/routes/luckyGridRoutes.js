@@ -1,6 +1,7 @@
 //routes/luckyGridRoutes.js
 const express = require('express');
 const { sendEmail } = require('../utils/emailService');
+const cron = require('node-cron');
 
 
 module.exports = function (authenticate) {
@@ -215,7 +216,7 @@ if (profile.available_game_sessions < tokenCost) {
   try {
     const numbersStr = newPicks.map(p => p.number).join(', ');
     const emailHtml = `
-      <h3>Lucky Draw Confirmation</h3>
+      <h3>Wo Suro A Wondi Draw Confirmation</h3>
       <p>Hi ${user.email},</p>
       <p>You have successfully picked the following numbers for the current game:</p>
       <p><strong>${numbersStr}</strong></p>
@@ -309,39 +310,95 @@ if (profile.available_game_sessions < tokenCost) {
         console.error('Error fetching winner pick:', winnerPickError);
       }
 
-      let winnerProfile = null;
-      if (winnerPick && winnerPick.user_id) {
-        // 5) Increment winner's total_wins
-        const { data: updatedProfile, error: updateProfileError } = await supabase
-          .from('profiles')
-          .update({ total_wins: supabase.raw ? undefined : null })
-          .eq('id', winnerPick.user_id)
-          .select('id, total_wins')
-          .single();
+let winnerProfile = null;
+let winnerAuthUser = null;
 
-        // The above update is a placeholder — do a simple increment instead:
-        const { data: incData, error: incError } = await supabase
-          .from('profiles')
-          .update({ total_wins: (updatedProfile?.total_wins || 0) + 1 })
-          .eq('id', winnerPick.user_id)
-          .select('id, total_wins')
-          .single();
+if (winnerPick && winnerPick.user_id) {
 
-        if (incError) {
-          console.error('Error incrementing winner total_wins:', incError);
-        } else {
-          winnerProfile = incData;
-        }
-      }
+  // 5️⃣ Increment total wins (atomic update)
+  const { data: profileData, error: profileError } = await supabase
+    .from('profiles')
+    .update({ total_wins: supabase.rpc ? undefined : null })
+    .eq('id', winnerPick.user_id)
+    .select('*')
+    .single();
 
-      // 6) Return reveal result
-      return res.status(200).json({
-        message: 'Winner revealed.',
-        winningNumber,
-        winnerPick: winnerPick || null,
-        winnerProfile: winnerProfile || null,
-        game: updatedGame,
-      });
+  if (profileError) {
+    console.error('Error incrementing total_wins:', profileError);
+  } else {
+    winnerProfile = profileData;
+  }
+
+  // 6️⃣ Fetch name + phone from profiles table
+  const { data: profileDetails, error: profileDetailsError } = await supabase
+    .from('profiles')
+    .select('id, name, phone_number, total_wins')
+    .eq('id', winnerPick.user_id)
+    .single();
+
+  if (!profileDetailsError) {
+    winnerProfile = profileDetails;
+  }
+
+  // 7️⃣ Fetch email from auth.users
+  const { data: authUserData, error: authUserError } = await supabase.auth.admin.getUserById(
+    winnerPick.user_id
+  );
+
+  if (!authUserError) {
+    winnerAuthUser = authUserData.user;
+  }
+}
+
+
+// --- 6️⃣ Return reveal result + send admin email ---
+try {
+const adminHtml = `
+  <h3>🎉 Lucky Draw Game Ended</h3>
+  <p><strong>Game ID:</strong> ${updatedGame.id}</p>
+  <p><strong>Winning Number:</strong> ${winningNumber}</p>
+
+  <h4>🏆 Winner Details:</h4>
+  ${
+    winnerProfile
+      ? `
+        <p><strong>Name:</strong> ${winnerProfile.name || 'N/A'}</p>
+        <p><strong>Phone:</strong> ${winnerProfile.phone_number || 'N/A'}</p>
+        <p><strong>Email:</strong> ${winnerAuthUser?.email || 'N/A'}</p>
+      `
+      : '<p>No winner for this round.</p>'
+  }
+`;
+
+
+  // You can have multiple admin emails if you want
+  const ADMIN_EMAILS = [
+    process.env.ADMIN_EMAIL || 'josiahiscoding@gmail.com'
+  ];
+
+  for (const adminEmail of ADMIN_EMAILS) {
+    await sendEmail(
+      adminEmail,
+      `🎯 Lucky Draw Results for Game ${updatedGame.id}`,
+      adminHtml
+    );
+  }
+
+  console.log('✅ Admin email(s) sent successfully');
+} catch (err) {
+  console.error('❌ Error sending admin email:', err);
+}
+
+// Finally, respond to client
+return res.status(200).json({
+  message: 'Winner revealed.',
+  winningNumber,
+  winnerPick: winnerPick || null,
+  winnerProfile: winnerProfile || null,
+  game: updatedGame,
+});
+
+
     } catch (err) {
       console.error('Server error in /reveal:', err);
       return res.status(500).json({ error: 'Server error.' });
@@ -389,6 +446,51 @@ router.get('/last-revealed', async (req, res) => {
   } catch (err) {
     console.error('Error fetching last revealed game:', err);
     res.status(500).json({ error: 'Failed to fetch last revealed game.' });
+  }
+});
+
+// Run every day at 21:00 (9 PM server time)
+cron.schedule('0 21 * * *', async () => {
+  const supabase = router.stack[0].handle?.app?.get('supabase'); 
+  if (!supabase) return console.error('Supabase client not available for cron job.');
+
+  try {
+    const { data: activeGames } = await supabase
+      .from('lucky_games')
+      .select('*')
+      .eq('status', 'active');
+
+    for (const game of activeGames) {
+      const { data: picks } = await supabase
+        .from('lucky_picks')
+        .select('user_id, number')
+        .eq('game_id', game.id);
+
+      // Notify each user with their picks + remaining numbers
+      const userIds = [...new Set(picks.map(p => p.user_id))];
+
+      for (const userId of userIds) {
+        const userPicks = picks.filter(p => p.user_id === userId).map(p => p.number);
+        const remaining = game.range - picks.length;
+
+        const { data: userProfile } = await supabase
+          .from('profiles')
+          .select('email')
+          .eq('id', userId)
+          .maybeSingle();
+
+        if (userProfile?.email) {
+          const html = `
+            <h3>Lucky Draw Daily Update</h3>
+            <p>Your picks so far: <strong>${userPicks.join(', ')}</strong></p>
+            <p>Numbers remaining: ${remaining}</p>
+          `;
+          sendEmail(userProfile.email, 'Daily Lucky Draw Update', html);
+        }
+      }
+    }
+  } catch (err) {
+    console.error('Error sending daily update emails:', err);
   }
 });
 
