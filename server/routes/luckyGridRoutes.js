@@ -1,5 +1,7 @@
 //routes/luckyGridRoutes.js
 const express = require('express');
+const { sendEmail } = require('../utils/emailService');
+
 
 module.exports = function (authenticate) {
   const router = express.Router();
@@ -207,6 +209,24 @@ if (profile.available_game_sessions < tokenCost) {
         console.error('CRITICAL: Token Deduction Failed!', deductError);
         return res.status(500).json({ error: 'Picks recorded, but token deduction failed. Contact support.' });
       }
+
+// --- SEND CONFIRMATION EMAIL ---
+(async () => {
+  try {
+    const numbersStr = newPicks.map(p => p.number).join(', ');
+    const emailHtml = `
+      <h3>Lucky Draw Confirmation</h3>
+      <p>Hi ${user.email},</p>
+      <p>You have successfully picked the following numbers for the current game:</p>
+      <p><strong>${numbersStr}</strong></p>
+      <p>Good luck!</p>
+    `;
+    await sendEmail(user.email, 'Your Lucky Draw Picks', emailHtml);
+  } catch (emailErr) {
+    console.error('Error sending confirmation email:', emailErr);
+  }
+})();
+
       
       // 8️⃣ Auto-close game if all numbers taken
       const { count, error: countError } = await supabase
