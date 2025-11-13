@@ -38,14 +38,14 @@ export default function Game() {
         {/* First Button with Image */}
         <div className="flex flex-col items-center gap-4 w-full">
           <Image
-          onClick={gotowheel}
+            onClick={gotowheel}
             src="/spin2.png"
             alt="Spin & Win Game"
             width={400} 
             height={400} 
             className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer w-full h-auto" 
           />
-          <Button className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer">
+          <Button className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer" onClick={gotowheel}>
             Spin & Win
           </Button>
         </div>
@@ -53,7 +53,7 @@ export default function Game() {
         {/* Second Button with Image */}
         <div className="flex flex-col items-center gap-4 w-full">
           <Image
-          onClick={gotogrid}
+            onClick={gotogrid}
             src="/lucky.png"
             alt="Twa Na Di Game"
             width={400} 
@@ -61,6 +61,7 @@ export default function Game() {
             className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer w-full h-auto"
           />
           <Button
+            onClick={gotogrid}
             variant="outline"
             className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer"
           >

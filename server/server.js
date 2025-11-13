@@ -116,66 +116,55 @@ app.post('/api/register-otp', async (req, res) => {
 // --- API Route 2: VERIFYING THE OTP (Login) - UPDATED TO CREATE PROFILE ---
 app.post('/api/verify-otp', async (req, res) => {
   const supabase = app.get('supabase');
-
   const { email, token } = req.body;
 
   if (!email || !token) {
     return res.status(400).json({ error: 'Email and verification token are required.' });
   }
 
-  // 1. **Verify the OTP and get the user session**
+  // 1️⃣ Verify OTP and get the user
   const { data: authData, error: authError } = await supabase.auth.verifyOtp({
     email,
     token,
-    type: 'email', 
+    type: 'email',
   });
 
   if (authError) {
-    console.error('Supabase Verification Error:', authError);
+    console.error(`[${new Date().toISOString()}] Supabase Verification Error:`, authError);
     return res.status(401).json({ error: 'Invalid or expired code. Please try again.' });
   }
-  
+
   const { user, session } = authData;
 
-  // 2. **Check for and Create User Profile**
-  try {
-    let { data: profile, error: fetchError } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('id', user.id)
-      .single();
+  // 2️⃣ Log profile creation attempts
+  console.log(`[${new Date().toISOString()}] [VERIFY-OTP] Checking/creating profile for user ${user.id} (${email})`);
 
-    if (fetchError && fetchError.code === 'PGRST116') {
-      console.log(`Creating new profile for user ID: ${user.id}`);
-      
-      const { error: insertError } = await supabase
-        .from('profiles')
-        .insert([
-          { 
-            id: user.id, 
-            available_game_sessions: 0, 
-            total_wins: 0 
-          }
-        ]);
-      
-      if (insertError) {
-        console.error('Profile creation error:', insertError);
-      }
-    } else if (fetchError) {
-       throw new Error(`Database error: ${fetchError.message}`);
-    }
+  // 3️⃣ Upsert profile atomically (safe for multiple devices/logins)
+  const { error: upsertError } = await supabase
+    .from('profiles')
+    .upsert(
+      {
+        id: user.id,
+        available_game_sessions: 0,
+        total_wins: 0,
+      },
+      { onConflict: 'id' }
+    );
 
-  } catch (dbError) {
-    console.error('Unexpected database error during profile check:', dbError);
+  if (upsertError) {
+    console.error(`[${new Date().toISOString()}] [VERIFY-OTP] Profile upsert error for ${user.id}:`, upsertError);
+  } else {
+    console.log(`[${new Date().toISOString()}] [VERIFY-OTP] Profile ensured for user ${user.id}`);
   }
 
-  // 3. **Success! Respond to the client**
+  // 4️⃣ Respond to client
   res.status(200).json({
     message: 'Login successful!',
-    user: user,
-    session: session,
+    user,
+    session,
   });
 });
+
 
 
 // --- API Route 3: UPDATE USER PROFILE DETAILS (Authenticated) ---
@@ -202,7 +191,7 @@ app.put('/api/profile', authenticate, async (req, res) => {
       .from('profiles')
       .update(updateFields)
       .eq('id', userId) 
-      .select('id, name, phone_number, available_game_sessions, total_wins'); // Select specific fields
+      .select('id, name, phone_number, available_game_sessions, total_wins');
 
     if (error) {
       console.error('Supabase Profile Update Error:', error);

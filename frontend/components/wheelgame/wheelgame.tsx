@@ -62,19 +62,13 @@ export default function WheelGame() {
         />
 
         {/* Center SPIN button */}
-        <button
-          onClick={handleSpinClick}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] bg-white text-gray-800 font-semibold rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg active:scale-95 transition z-100"
-        >
+        <button onClick={handleSpinClick} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] bg-white text-gray-800 font-semibold rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg active:scale-95 transition z-100 cursor-pointer">
           SPIN
         </button>
       </div>
 
       {/* Outer Spin Again Button */}
-      <button
-        onClick={handleSpinClick}
-        className="mt-8 px-6 py-2 sm:px-8 sm:py-3 bg-red-500 hover:bg-red-700 text-white font-semibold rounded-md shadow-md transition-transform hover:-translate-y-1 text-lg"
-      >
+      <button onClick={handleSpinClick} className="mt-8 px-6 py-2 sm:px-8 sm:py-3 bg-red-500 hover:bg-red-700 text-white font-semibold rounded-md shadow-md transition-transform hover:-translate-y-1 text-lg cursor-pointer">
         SPIN
       </button>
     </div>

@@ -133,13 +133,12 @@ function isAdmin(user) {
         return res.status(400).json({ error: `All numbers must be between 1 and ${activeGame.range}.` });
       }
       
-      // 4️⃣ Check user tokens
 // 4️⃣ Check user tokens
 const { data: profile, error: profileError } = await supabase
   .from('profiles')
   .select('available_game_sessions')
   .eq('id', user.id)
-  .maybeSingle(); // <--- ✅ CHANGED: Use maybeSingle() here
+  .maybeSingle(); 
 
 if (profileError) throw profileError;
 
