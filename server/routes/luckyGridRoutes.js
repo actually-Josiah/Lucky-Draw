@@ -134,18 +134,29 @@ function isAdmin(user) {
       }
       
       // 4️⃣ Check user tokens
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('available_game_sessions')
-        .eq('id', user.id)
-        .single();
+// 4️⃣ Check user tokens
+const { data: profile, error: profileError } = await supabase
+  .from('profiles')
+  .select('available_game_sessions')
+  .eq('id', user.id)
+  .maybeSingle(); // <--- ✅ CHANGED: Use maybeSingle() here
 
-      if (profileError) throw profileError;
-      if (!profile || profile.available_game_sessions < tokenCost) { // ⬅️ Check against total cost
-        return res.status(403).json({ 
-            error: `Insufficient tokens. Cost: ${tokenCost}, Available: ${profile.available_game_sessions}.` 
-        });
-      }
+if (profileError) throw profileError;
+
+// --- Important Change ---
+// When using maybeSingle() and 0 rows are returned, `profile` will be null.
+if (!profile) { 
+    // This handles the case where the user exists but has no profile row.
+    return res.status(403).json({ 
+        error: 'Unable to access your profile. Please log out and log back in.' 
+    });
+}
+
+if (profile.available_game_sessions < tokenCost) {
+    return res.status(403).json({ 
+        error: `Insufficient tokens. Cost: ${tokenCost}, Available: ${profile.available_game_sessions}.` 
+    });
+}
 
       // 5️⃣ Check for already picked numbers (race condition check)
       const { data: existingPicks, error: existingPicksError } = await supabase

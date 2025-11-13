@@ -20,7 +20,7 @@ export default function Header() {
          style={{ objectFit: 'contain' }} 
         />
       </div>
-          <span className="font-bold text-xl text-white">FoodStuff Home</span>
+          <span className="font-bold text-xl text-slate-800">FoodStuff Home</span>
         </div>
 
         <button

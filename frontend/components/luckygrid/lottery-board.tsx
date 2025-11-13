@@ -164,7 +164,7 @@ const numbers = useMemo(() =>
         >
           {isSubmitting
             ? "Confirming..."
-            : `Done (${tokenCost} Token${tokenCost === 1 ? "" : "s"})`}
+            : `Confirm (${tokenCost})`}
         </button>
       </div>
 

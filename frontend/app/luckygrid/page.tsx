@@ -164,7 +164,7 @@ export default function LuckyGridPage() {
           <LotteryBoard gameData={gameData} picks={picks} />
         </div>
         <div>
-          <h2 className="text-3xl font-bold text-foreground mb-6 lg:invisible">Game Info</h2>
+          <h2 className="text-3xl font-bold text-white mb-6 lg:invisible">Game Info</h2>
           <GameInfo gameData={gameData} picks={picks} />
         </div>
       </div>
