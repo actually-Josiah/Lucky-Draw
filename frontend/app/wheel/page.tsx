@@ -1,3 +1,5 @@
+//app/wheel/page.tsx
+
 import WheelGame from "@/components/wheelgame/wheelgame";
 import Header from "@/components/header2"
 

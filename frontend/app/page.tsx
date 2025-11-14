@@ -26,7 +26,7 @@ export default function LoginPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[url('/bg-wheel.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center p-4 pt-24">
+      <main className="min-h-screen bg-[url('/login2.jpg')] bg-cover bg-center bg-no-repeat flex items-center justify-center p-4 pt-24">
         <LoginForm onSubmit={handleEmailSubmit} />
         {showOtpModal && (
           <OtpModal

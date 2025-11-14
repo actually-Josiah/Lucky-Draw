@@ -15,45 +15,61 @@ function isAdmin(user) {
 
 
   // GET /api/lucky-grid/active
-  router.get('/active', async (req, res) => {
-    const supabase = req.app.get('supabase');
+// GET /api/lucky-grid/active
+router.get('/active', async (req, res) => {
+  const supabase = req.app.get('supabase');
 
-    try {
-      const { data: games, error: gameError } = await supabase
-        .from('lucky_games')
-        .select('*')
-        .eq('status', 'active')
-        .order('created_at', { ascending: false })
-        .limit(1);
+  try {
+    // 💡 NEW: Supabase Connection Health Check
+    // This forces the underlying connection pool to re-establish a connection
+    // if the previous ones timed out during server inactivity (Render cold start).
+    // We use a simple `SELECT 1` or `now()` RPC call for minimal overhead.
+    const { error: healthError } = await supabase.rpc('now'); 
 
-      if (gameError) {
-        console.error('Error fetching active game:', gameError);
-        return res.status(500).json({ error: 'Could not fetch active game.' });
-      }
-
-      const activeGame = games && games.length ? games[0] : null;
-
-      if (!activeGame) {
-        return res.status(200).json({ message: 'No active game found.', game: null, picks: [] });
-      }
-
-      const { data: picks, error: picksError } = await supabase
-        .from('lucky_picks')
-        .select('id, user_id, number, picked_at')
-        .eq('game_id', activeGame.id)
-        .order('picked_at', { ascending: true });
-
-      if (picksError) {
-        console.error('Error fetching picks for active game:', picksError);
-        return res.status(500).json({ error: 'Could not fetch picks.' });
-      }
-
-      return res.status(200).json({ game: activeGame, picks });
-    } catch (err) {
-      console.error('Server error in /active:', err);
-      return res.status(500).json({ error: 'Server error.' });
+    if (healthError) {
+      console.error('Supabase connection health check failed:', healthError);
+      // Return a 503 Service Unavailable, prompting the client to retry.
+      return res.status(503).json({ error: 'Database connection failed to wake up. Please retry the request in a moment.' });
     }
-  });
+    // The inner 'try' you had before is REMOVED here.
+
+    // All subsequent database operations now rely on the outer try block.
+    const { data: games, error: gameError } = await supabase
+      .from('lucky_games')
+      .select('*')
+      .eq('status', 'active')
+      .order('created_at', { ascending: false })
+      .limit(1);
+
+    if (gameError) {
+      console.error('Error fetching active game:', gameError);
+      return res.status(500).json({ error: 'Could not fetch active game.' });
+    }
+
+    const activeGame = games && games.length ? games[0] : null;
+
+    if (!activeGame) {
+      return res.status(200).json({ message: 'No active game found.', game: null, picks: [] });
+    }
+
+    const { data: picks, error: picksError } = await supabase
+      .from('lucky_picks')
+      .select('id, user_id, number, picked_at')
+      .eq('game_id', activeGame.id)
+      .order('picked_at', { ascending: true });
+
+    if (picksError) {
+      console.error('Error fetching picks for active game:', picksError);
+      return res.status(500).json({ error: 'Could not fetch picks.' });
+    }
+
+    return res.status(200).json({ game: activeGame, picks });
+
+  } catch (err) { // This single catch now handles all 'await' calls above it.
+    console.error('Server error in /active:', err);
+    return res.status(500).json({ error: 'Server error.' });
+  }
+});
 
   // POST /api/lucky-grid/create
   // Create a new lucky game (admin or system)
