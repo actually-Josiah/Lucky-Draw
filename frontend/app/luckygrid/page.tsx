@@ -10,7 +10,7 @@ import { Loader2 } from "lucide-react"
 // Components
 import LotteryBoard from "@/components/luckygrid/lottery-board"
 import GameInfo from "@/components/luckygrid/game-info"
-import GameEndedModal from "@/components/luckygrid/GameEndedModal" // <-- Make sure this exists
+import GameEndedModal from "@/components/luckygrid/GameEndedModal"
 import GameClosedModal from "@/components/luckygrid/GameClosedModal"
 
 // Interfaces
@@ -33,6 +33,9 @@ interface Pick {
 // NOTE: API URL
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+// Constant for retry attempts
+const MAX_RETRIES = 1; 
+
 export default function LuckyGridPage() {
   const [gameData, setGameData] = useState<GameData | null>(null)
   const [picks, setPicks] = useState<Pick[]>([])
@@ -48,8 +51,23 @@ export default function LuckyGridPage() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   )
 
-  // --- 1. Fetch Active Game ---
-const fetchGameData = useCallback(async () => {
+  // --- Helper function for handling the DB wake-up failure ---
+  const handleWakeupFailure = async (response: Response, data: any, retryCount: number, apiPath: string) => {
+      if (response.status === 503 && data.message === 'DB_WAKEUP_FAILED') {
+          if (retryCount < MAX_RETRIES) {
+              console.warn(`DB Wakeup failed on ${apiPath}. Retrying in 1 second...`);
+              // Wait 1 second before retrying
+              await new Promise(resolve => setTimeout(resolve, 1000));
+              return { shouldRetry: true };
+          } else {
+              throw new Error("Failed to connect to the database after multiple retries.");
+          }
+      }
+      return { shouldRetry: false };
+  }
+
+  // --- 1. Fetch Active Game (MODIFIED) ---
+const fetchGameData = useCallback(async (retryCount = 0) => {
   setLoading(true);
   setError(null);
 
@@ -57,7 +75,13 @@ const fetchGameData = useCallback(async () => {
     // 1. First check: is there a CLOSED game?
     const closedRes = await fetch(`${API_URL}/api/lucky-grid/closed`);
     const closedData = await closedRes.json();
-
+    
+    // Check for DB Wakeup Failure
+    const closedWakeup = await handleWakeupFailure(closedRes, closedData, retryCount, '/closed');
+    if (closedWakeup.shouldRetry) {
+        return fetchGameData(retryCount + 1);
+    }
+    
     if (closedData.game) {
       // CLOSED GAME FOUND
       setGameData(closedData.game);
@@ -71,6 +95,12 @@ const fetchGameData = useCallback(async () => {
     // 2. No closed game → check active or revealed
     const res = await fetch(`${API_URL}/api/lucky-grid/active`);
     const data = await res.json();
+    
+    // Check for DB Wakeup Failure
+    const activeWakeup = await handleWakeupFailure(res, data, retryCount, '/active');
+    if (activeWakeup.shouldRetry) {
+        return fetchGameData(retryCount + 1);
+    }
 
     if (data.game) {
       // ACTIVE or REVEALED
@@ -91,6 +121,12 @@ const fetchGameData = useCallback(async () => {
     // 3. No closed + no active → show last revealed
     const lastRes = await fetch(`${API_URL}/api/lucky-grid/last-revealed`);
     const lastData = await lastRes.json();
+
+    // Check for DB Wakeup Failure
+    const revealedWakeup = await handleWakeupFailure(lastRes, lastData, retryCount, '/last-revealed');
+    if (revealedWakeup.shouldRetry) {
+        return fetchGameData(retryCount + 1);
+    }
 
     if (lastData.game) {
       setGameData(lastData.game);
@@ -205,8 +241,8 @@ const fetchGameData = useCallback(async () => {
         />
       )}
       {showModal && gameData?.status === "closed" && (
-  <GameClosedModal onClose={() => setShowModal(false)} />
-)}
+        <GameClosedModal onClose={() => setShowModal(false)} />
+      )}
 
     </div>
   )

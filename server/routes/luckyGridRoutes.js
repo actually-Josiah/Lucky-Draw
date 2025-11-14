@@ -12,26 +12,30 @@ function isAdmin(user) {
   return ADMIN_EMAILS.includes(user.email);
 }
 
+// --- Helper function to handle the Supabase connection health check ---
+async function performHealthCheck(supabase, res) {
+  const { error: healthError } = await supabase.rpc('now'); 
+  if (healthError) {
+    console.error('Supabase connection health check failed:', healthError);
+    return res.status(503).json({ 
+      error: 'Database connection failed to wake up. Please retry the request in a moment.',
+      message: 'DB_WAKEUP_FAILED' // Custom marker for frontend troubleshooting
+    });
+  }
+  return null; // Return null if successful
+}
+// -------------------------------------------------------------------
+
 
   // GET /api/lucky-grid/active
 router.get('/active', async (req, res) => {
   const supabase = req.app.get('supabase');
 
   try {
-    // 💡 Health Check: Force the underlying connection pool to re-establish a connection
-    // if the previous ones timed out during server inactivity.
-    const { error: healthError } = await supabase.rpc('now'); 
-
-    if (healthError) {
-      console.error('Supabase connection health check failed:', healthError);
-      // Return a 503 Service Unavailable, prompting the client to retry.
-      // NOTE: This is the safest response for a temporary connection wake-up failure.
-      return res.status(503).json({ 
-        error: 'Database connection failed to wake up. Please retry the request in a moment.',
-        message: 'DB_WAKEUP_FAILED' // Custom marker for frontend troubleshooting
-      });
-    }
-
+    // 💡 Health Check
+    const healthCheckResponse = await performHealthCheck(supabase, res);
+    if (healthCheckResponse) return healthCheckResponse; // Returns 503 if failed
+    
     // All subsequent database operations now rely on a live connection.
     const { data: games, error: gameError } = await supabase
       .from('lucky_games')
@@ -86,6 +90,10 @@ router.get('/active', async (req, res) => {
     }
 
     try {
+      // Health Check for Admin actions
+      const healthCheckResponse = await performHealthCheck(supabase, res);
+      if (healthCheckResponse) return healthCheckResponse; 
+
       await supabase
         .from('lucky_games')
         .update({ status: 'completed' })
@@ -134,6 +142,10 @@ router.get('/active', async (req, res) => {
     const tokenCost = pickCount; // 1 token per pick
 
     try {
+      // Health Check for Pick action
+      const healthCheckResponse = await performHealthCheck(supabase, res);
+      if (healthCheckResponse) return healthCheckResponse; 
+
       // 2️⃣ Get active game
       const { data: games, error: gameError } = await supabase
         .from('lucky_games')
@@ -283,6 +295,10 @@ if (!countError && totalPicks >= activeGame.range) {
     }
 
     try {
+      // Health Check for Admin actions
+      const healthCheckResponse = await performHealthCheck(supabase, res);
+      if (healthCheckResponse) return healthCheckResponse; 
+      
       // 1) Fetch the most recent closed or active game
       const { data: games, error: gameError } = await supabase
         .from('lucky_games')
@@ -426,10 +442,14 @@ return res.status(200).json({
     }
   });
 
-// GET /api/lucky-grid/last-revealed
+// GET /api/lucky-grid/last-revealed (MODIFIED)
 router.get('/last-revealed', async (req, res) => {
   const supabase = req.app.get('supabase');
   try {
+    // 💡 Health Check
+    const healthCheckResponse = await performHealthCheck(supabase, res);
+    if (healthCheckResponse) return healthCheckResponse; // Returns 503 if failed
+
     // 1️⃣ Fetch the most recent revealed game
     const { data: games, error: gameError } = await supabase
       .from('lucky_games')
@@ -470,11 +490,15 @@ router.get('/last-revealed', async (req, res) => {
   }
 });
 
-// GET /api/lucky-grid/closed
+// GET /api/lucky-grid/closed (MODIFIED)
 router.get('/closed', async (req, res) => {
   const supabase = req.app.get('supabase');
 
   try {
+    // 💡 Health Check
+    const healthCheckResponse = await performHealthCheck(supabase, res);
+    if (healthCheckResponse) return healthCheckResponse; // Returns 503 if failed
+
     const { data, error } = await supabase
       .from('lucky_games')
       .select('*')
@@ -503,6 +527,13 @@ cron.schedule('0 21 * * *', async () => {
   if (!supabase) return console.error('Supabase client not available for cron job.');
 
   try {
+    // ⚠️ CRON Health Check: Perform one check before running large query loops
+    const { error: healthError } = await supabase.rpc('now'); 
+    if (healthError) {
+      return console.error('Cron job DB connection health check failed, skipping run:', healthError);
+    }
+    // End Health Check
+
     const { data: activeGames } = await supabase
       .from('lucky_games')
       .select('*')
