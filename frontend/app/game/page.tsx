@@ -36,7 +36,7 @@ export default function Game() {
       <div className="flex flex-col sm:flex-row gap-8 w-full max-w-xl"> 
         
         {/* First Button with Image */}
-        <div className="flex flex-col items-center gap-4 w-full display-hidden">
+        <div className="flex flex-col items-center gap-4 w-full hidden">
           <Image
             onClick={gotowheel}
             src="/spin2.png"

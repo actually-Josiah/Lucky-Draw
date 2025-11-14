@@ -1,14 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 const leaderboardData = [
-  { rank: 1, name: "Alex Chen", score: 10, badge: "🏆" },
-  { rank: 2, name: "Jordan Smith", score: 9, badge: "🥈" },
-  { rank: 3, name: "Casey Williams", score: 8, badge: "🥉" },
-  { rank: 4, name: "Morgan Davis", score: 7, badge: "" },
-  { rank: 5, name: "Taylor Johnson", score: 6, badge: "" },
-  { rank: 6, name: "Riley Brown", score: 5, badge: "" },
-  { rank: 7, name: "Sam Wilson", score: 4, badge: "" },
-  { rank: 8, name: "Jamie Martinez", score: 3, badge: "" },
+  { rank: 1, name: "David Mensah", score: 0, badge: "🏆" },
+  { rank: 2, name: "Abena Aseidu", score: 0, badge: "🥈" },
+  { rank: 3, name: "Bernard Kumi", score: 0, badge: "🥉" },
+  { rank: 4, name: "Oforiwaa", score: 0, badge: "" },
+  { rank: 5, name: "Bless", score: 0, badge: "" },
+  { rank: 6, name: "Wilfred Amoah", score: 0, badge: "" },
+  { rank: 7, name: "Gloria Agyapong", score: 0, badge: "" },
+  { rank: 8, name: "Grace Appau", score: 0, badge: "" },
 ]
 
 export default function Leaderboard() {
@@ -16,7 +16,7 @@ export default function Leaderboard() {
     <section className="max-w-7xl mx-auto px-4 py-12">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Weekly Leaderboard</CardTitle>
+          <CardTitle className="text-2xl">Annual Leaderboard</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">

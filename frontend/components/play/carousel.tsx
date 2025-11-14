@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button"
 
 const images = [
   // Updated with different placeholder paths
-  { id: 1, title: "Wo Suro A Wondi", image: "/maincaro1.jpeg" },
-  { id: 2, title: "Game Challenge 2", image: "/caro4.png" },
-  { id: 3, title: "Game Challenge 3", image: "/caro2.png" },
-  { id: 4, title: "Game Challenge 4", image: "/caro3.png" },
-  { id: 5, title: "Game Challenge 5", image: "/caro4.png" },
+  { id: 1, title: "Wo Sura A, Wo Nni", image: "/maincaro1.jpeg" },
+  { id: 2, title: "Stake Big And Win Big", image: "/maincaro2.jpeg" },
+  { id: 3, title: "Food Stuffs Up For Grabs", image: "/maincaro3.jpeg" },
+  { id: 4, title: "Be The Lucky Winner", image: "/maincaro4.jpeg" },
+  { id: 5, title: "Are You Feeling Lucky?", image: "/maincaro5.jpeg" },
 ]
 
 export default function Carousel() {
