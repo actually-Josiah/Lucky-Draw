@@ -9,7 +9,7 @@ export default function PlayHeader() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 md:py-20">
-      <h1 className="text-5xl md:text-6xl font-bold text-foreground text-balance">Wo Sura A, Wi Nni Raffle</h1>
+      <h1 className="text-5xl md:text-6xl font-bold text-foreground text-balance">Wo Sura A, Wo Nni Raffle</h1>
       <p className="text-lg text-muted-foreground mt-4 max-w-2xl">
         Play our exciting game and compete with players worldwide. Test your skills and climb the leaderboard.
       </p>

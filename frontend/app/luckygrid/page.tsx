@@ -66,7 +66,7 @@ export default function LuckyGridPage() {
       return { shouldRetry: false };
   }
 
-  // --- 1. Fetch Active Game (MODIFIED) ---
+  // --- 1. Fetch Active Game (RETRY LOGIC) ---
 const fetchGameData = useCallback(async (retryCount = 0) => {
   setLoading(true);
   setError(null);
@@ -186,6 +186,29 @@ const fetchGameData = useCallback(async (retryCount = 0) => {
       setShowModal(false)
     }
   }, [gameData, showModal])
+  
+  // --- 4. Heartbeat to Keep VPS/DB Active (NEW) ---
+  useEffect(() => {
+    // Ping the backend every 60 seconds (60000 ms) to keep the VPS and DB connection alive.
+    const intervalId = setInterval(async () => {
+      if (typeof window === 'undefined') return;
+      
+      try {
+        // Ping the /active route, which contains the backend health check
+        const pingRes = await fetch(`${API_URL}/api/lucky-grid/active`);
+        if (pingRes.ok) {
+          console.log('💚 Heartbeat successful. VPS/DB connection maintained.');
+        } else {
+          console.warn(`💔 Heartbeat failed with status: ${pingRes.status}`);
+        }
+      } catch (err) {
+        console.error('💔 Heartbeat failed (Network/Catch):', err);
+      }
+    }, 60000); // 60 seconds
+
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
 
   // --- Loading/Error ---
   if (loading) {
