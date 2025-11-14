@@ -241,21 +241,34 @@ const fetchGameData = useCallback(async (retryCount = 0) => {
     )
   }
 
-  return (
-    <div className="min-h-screen bg-[url('/gridbg.png')] bg-cover bg-center bg-no-repeat pt-8 pb-16 relative">
-      {/* Lottery Board & Game Info */}
-      <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <h1 className="text-3xl font-bold text-white mb-6 text-center">TWA NA DI</h1>
-          <LotteryBoard gameData={gameData} picks={picks} />
-        </div>
-        <div>
-          <h2 className="text-3xl font-bold text-white mb-6 lg:invisible">Game Info</h2>
-          <GameInfo gameData={gameData} picks={picks} />
-        </div>
+return (
+    // 1. OUTER CONTAINER: Set position to relative for the absolute child to work
+    <div className="min-h-screen relative">
+
+      {/* 2. BLURRED BACKGROUND LAYER (The Fix) */}
+      <div 
+        className="absolute inset-0 bg-[url('/gridbg.png')] bg-cover bg-center bg-no-repeat blur-[2px]"
+      >
+        {/* Optional: Add a subtle overlay here for better text contrast */}
+        <div className="absolute inset-0 bg-black/10"></div>
       </div>
 
-      {/* Modal for last revealed game */}
+      {/* 3. MAIN CONTENT LAYER: Your existing content needs to be relative and above the background */}
+      <div className="relative z-10 pt-8 pb-16">
+        {/* Lottery Board & Game Info */}
+        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <h1 className="text-3xl font-bold text-white mb-6 text-center">TWA NA DI</h1>
+            <LotteryBoard gameData={gameData} picks={picks} />
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold text-white mb-6 lg:invisible">Game Info</h2>
+            <GameInfo gameData={gameData} picks={picks} />
+          </div>
+        </div>
+      </div> {/* <-- Closing the MAIN CONTENT LAYER */}
+
+      {/* Modal for last revealed game - These are outside the content layer but still inside the main relative container */}
       {showModal && lastRevealedGame && (
         <GameEndedModal
           game={lastRevealedGame}
@@ -267,6 +280,6 @@ const fetchGameData = useCallback(async (retryCount = 0) => {
         <GameClosedModal onClose={() => setShowModal(false)} />
       )}
 
-    </div>
+    </div> // <-- Closing the OUTER CONTAINER
   )
 }

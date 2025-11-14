@@ -148,6 +148,7 @@ router.post('/pick', authenticate, async (req, res) => {
 
   const uniqueNumbers = [...new Set(numbers)]; // Remove client-side duplicates
   const pickCount = uniqueNumbers.length; // 1 token per pick
+  const tokenCost = pickCount; 
 
   try {
     // Health Check for Pick action

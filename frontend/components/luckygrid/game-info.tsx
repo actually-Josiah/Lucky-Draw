@@ -140,7 +140,7 @@ export default function GameInfo({ gameData, picks }: GameInfoProps) {
       </div>
 
       {/* --- Players --- */}
-      <div className="rounded-lg bg-white/20 backdrop-blur-small p-6">
+      <div className="rounded-lg border-border bg-white/10 backdrop-blur-md p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Players</h2>
         {sortedUsers.length > 0 ? (
           <div className="space-y-3">
