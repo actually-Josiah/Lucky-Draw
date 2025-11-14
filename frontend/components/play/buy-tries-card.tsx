@@ -17,9 +17,9 @@ const PAYSTACK_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
 
 // --- Define packages available ---
 const purchasePackages = [
-  { amount: 20, tokens: 1, label: "1 Token" },
-  { amount: 58, tokens: 3, label: "3 Tokens (Best Value)" },
-  { amount: 100, tokens: 5, label: "5 Tokens" },
+  { amount: 1, tokens: 1, label: "1 Token" },
+  { amount: 3, tokens: 3, label: "3 Tokens (Best Value)" },
+  { amount: 5, tokens: 5, label: "5 Tokens" },
 ]
 
 // --- Paystack type for TypeScript ---
