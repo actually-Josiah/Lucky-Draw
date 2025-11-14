@@ -43,7 +43,8 @@ app.set('supabase', supabase);
 const allowedOrigins = [
   "http://localhost:3000",
   "http://10.21.136.216:3000",
-  "https://homefoodstuffluckydraw.netlify.app"
+  "https://homefoodstuffluckydraw.netlify.app",
+  "https://wosuraawonni.cloud"
 ];
 
 app.use(cors({
