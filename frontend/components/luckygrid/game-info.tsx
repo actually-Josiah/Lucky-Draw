@@ -6,7 +6,7 @@ import { createBrowserClient } from "@supabase/ssr"
 interface GameData {
   id: string
   range: number
-  status: "active" | "revealed" | "completed"
+  status: "active" | "closed" | "revealed" | "completed";
   winning_number: number | null
   created_at: string
 }

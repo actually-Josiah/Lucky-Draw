@@ -229,15 +229,21 @@ if (profile.available_game_sessions < tokenCost) {
 })();
 
       
-      // 8️⃣ Auto-close game if all numbers taken
-      const { count, error: countError } = await supabase
-        .from('lucky_picks')
-        .select('*', { count: 'exact', head: true })
-        .eq('game_id', activeGame.id);
+// 8️⃣ Auto-close game if all numbers taken
+const { count: totalPicks, error: countError } = await supabase
+  .from('lucky_picks')
+  .select('*', { count: 'exact', head: true })
+  .eq('game_id', activeGame.id);
 
-      if (!countError && count + newPicks.length >= activeGame.range) { // Adjusted count check
-        await supabase.from('lucky_games').update({ status: 'closed' }).eq('id', activeGame.id);
-      }
+if (!countError && totalPicks >= activeGame.range) {
+  await supabase
+    .from('lucky_games')
+    .update({ status: 'closed' })
+    .eq('id', activeGame.id);
+
+  console.log(`🔒 Game ${activeGame.id} closed automatically.`);
+}
+
 
       // 9️⃣ Respond success
       res.status(201).json({
@@ -448,6 +454,33 @@ router.get('/last-revealed', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch last revealed game.' });
   }
 });
+
+// GET /api/lucky-grid/closed
+router.get('/closed', async (req, res) => {
+  const supabase = req.app.get('supabase');
+
+  try {
+    const { data, error } = await supabase
+      .from('lucky_games')
+      .select('*')
+      .eq('status', 'closed')
+      .order('created_at', { ascending: false })
+      .limit(1);
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      return res.json({ game: null });
+    }
+
+    return res.json({ game: data[0] });
+
+  } catch (err) {
+    console.error("Error fetching closed game:", err);
+    return res.status(500).json({ error: "Server error." });
+  }
+});
+
 
 // Run every day at 21:00 (9 PM server time)
 cron.schedule('0 21 * * *', async () => {

@@ -11,12 +11,13 @@ import { Loader2 } from "lucide-react"
 import LotteryBoard from "@/components/luckygrid/lottery-board"
 import GameInfo from "@/components/luckygrid/game-info"
 import GameEndedModal from "@/components/luckygrid/GameEndedModal" // <-- Make sure this exists
+import GameClosedModal from "@/components/luckygrid/GameClosedModal"
 
 // Interfaces
 interface GameData {
   id: string
   range: number
-  status: 'active' | 'revealed' | 'completed';
+  status: 'active' | 'closed' | 'revealed' | 'completed';
   winning_number: number | null;
   created_at: string
 }
@@ -48,41 +49,67 @@ export default function LuckyGridPage() {
   )
 
   // --- 1. Fetch Active Game ---
-  const fetchGameData = useCallback(async () => {
-    setLoading(true)
-    setError(null)
+const fetchGameData = useCallback(async () => {
+  setLoading(true);
+  setError(null);
 
-    try {
-      const res = await fetch(`${API_URL}/api/lucky-grid/active`)
-      const data = await res.json()
+  try {
+    // 1. First check: is there a CLOSED game?
+    const closedRes = await fetch(`${API_URL}/api/lucky-grid/closed`);
+    const closedData = await closedRes.json();
 
-      if (!res.ok) throw new Error(data.error || "Failed to fetch game data.")
-
-      if (data.game) {
-        setGameData(data.game)
-        setPicks(data.picks)
-        setShowModal(false) // active game, hide modal
-      } else {
-        // No active game, fetch last revealed
-        const lastRes = await fetch(`${API_URL}/api/lucky-grid/last-revealed`)
-        const lastData = await lastRes.json()
-        if (lastData.game) {
-          setGameData(lastData.game) // still show board
-          setPicks([]) // empty picks
-          setLastRevealedGame(lastData.game)
-          setWinner(lastData.winner)
-          setShowModal(true)
-        } else {
-          setError("No active game available.")
-        }
-      }
-    } catch (err) {
-      console.error("Fetch Game Error:", err)
-      setError(err instanceof Error ? err.message : "Unexpected error")
-    } finally {
-      setLoading(false)
+    if (closedData.game) {
+      // CLOSED GAME FOUND
+      setGameData(closedData.game);
+      setPicks([]); 
+      setLastRevealedGame(null);
+      setWinner(null);
+      setShowModal(true); // <-- SHOW closed modal
+      return;
     }
-  }, [])
+
+    // 2. No closed game → check active or revealed
+    const res = await fetch(`${API_URL}/api/lucky-grid/active`);
+    const data = await res.json();
+
+    if (data.game) {
+      // ACTIVE or REVEALED
+      setGameData(data.game);
+      setPicks(data.picks);
+
+      if (data.game.status === "revealed") {
+        setLastRevealedGame(data.game);
+        setWinner(data.winner);
+        setShowModal(true);
+      } else {
+        setShowModal(false);
+      }
+
+      return;
+    }
+
+    // 3. No closed + no active → show last revealed
+    const lastRes = await fetch(`${API_URL}/api/lucky-grid/last-revealed`);
+    const lastData = await lastRes.json();
+
+    if (lastData.game) {
+      setGameData(lastData.game);
+      setPicks([]);
+      setLastRevealedGame(lastData.game);
+      setWinner(lastData.winner);
+      setShowModal(true);
+      return;
+    }
+
+    setError("No active game available.");
+
+  } catch (err) {
+    setError(err instanceof Error ? err.message : "Unexpected error");
+  } finally {
+    setLoading(false);
+  }
+}, []);
+
 
   useEffect(() => {
     fetchGameData()
@@ -156,7 +183,7 @@ export default function LuckyGridPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[url('/bg-wheel.png')] bg-cover bg-center bg-no-repeat pt-8 pb-16 relative">
+    <div className="min-h-screen bg-[url('/gridbg.png')] bg-cover bg-center bg-no-repeat pt-8 pb-16 relative">
       {/* Lottery Board & Game Info */}
       <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
@@ -177,6 +204,10 @@ export default function LuckyGridPage() {
           onClose={() => setShowModal(false)}
         />
       )}
+      {showModal && gameData?.status === "closed" && (
+  <GameClosedModal onClose={() => setShowModal(false)} />
+)}
+
     </div>
   )
 }
