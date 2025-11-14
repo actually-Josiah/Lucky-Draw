@@ -3,18 +3,25 @@
 require('dotenv').config();
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
-const cors = require('cors'); // Add CORS for frontend communication
+const cors = require('cors'); 
 const crypto = require('crypto');
 
 const app = express();
 const port = process.env.PORT || 3001;
 
-// --- Supabase Initialization ---
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY,
-  { auth: { persistSession: false } } 
-);
+// 🛑 REMOVED: Global Supabase Initialization (We now initialize per request)
+// const supabase = createClient(...)
+// app.set('supabase', supabase); // Also removed
+
+// --- Supabase Initialization Function ---
+// 💡 NEW: Function to create a fresh client instance.
+const getSupabaseClient = () => {
+    return createClient(
+        process.env.SUPABASE_URL,
+        process.env.SUPABASE_SERVICE_KEY,
+        { auth: { persistSession: false } } 
+    );
+}
 
 // --- Prize Config ---
 const { PRIZES, CATEGORY_CONFIG } = require('./config/prizes');
@@ -37,8 +44,6 @@ function runWeightedDraw(config) {
 }
 
 
-app.set('supabase', supabase);
-
 // --- Middleware Setup ---
 const allowedOrigins = [
   "http://localhost:3000",
@@ -59,13 +64,26 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
-// app.use(rawBodyMiddleware);
+
+// --- Dynamic Supabase Middleware ---
+// 💡 NEW: Attach a fresh Supabase client to the request object and the app.
+function attachSupabaseClient(req, res, next) {
+    const supabase = getSupabaseClient();
+    req.supabase = supabase; // Used in updated routes (best practice)
+    req.app.set('supabase', supabase); // Used in legacy routes (compatibility)
+    next();
+}
+
 app.use('/api/paystack-webhook', express.raw({ type: 'application/json' }));
 app.use(express.json());
 
+// 💡 APPLY THE NEW DYNAMIC CLIENT MIDDLEWARE TO ALL /API ENDPOINTS
+app.use('/api', attachSupabaseClient); 
+
 // --- Middleware: Verify Supabase JWT Token ---
 async function authenticate(req, res, next) {
-  const supabase = req.app.get('supabase');
+  // Client is now guaranteed to be fresh via attachSupabaseClient middleware
+  const supabase = req.app.get('supabase'); 
 
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -91,10 +109,10 @@ app.get('/', (req, res) => {
 
 // --- API Route 1: SENDING THE OTP (Registration) ---
 app.post('/api/register-otp', async (req, res) => {
-  const supabase = app.get('supabase');
+  const supabase = req.app.get('supabase');
 
   const { email } = req.body; 
-
+// ... rest of the code remains the same ...
   if (!email) {
     return res.status(400).json({ error: 'Email address is required.' });
   }
@@ -116,9 +134,9 @@ app.post('/api/register-otp', async (req, res) => {
 
 // --- API Route 2: VERIFYING THE OTP (Login) - UPDATED TO CREATE PROFILE ---
 app.post('/api/verify-otp', async (req, res) => {
-  const supabase = app.get('supabase');
+  const supabase = req.app.get('supabase');
   const { email, token } = req.body;
-
+// ... rest of the code remains the same ...
   if (!email || !token) {
     return res.status(400).json({ error: 'Email and verification token are required.' });
   }
@@ -167,12 +185,12 @@ app.post('/api/verify-otp', async (req, res) => {
 });
 
 
-
 // --- API Route 3: UPDATE USER PROFILE DETAILS (Authenticated) ---
 app.put('/api/profile', authenticate, async (req, res) => {
   const supabase = req.app.get('supabase');
   
   const userId = req.user.id; 
+// ... rest of the code remains the same ...
   const { name, phone_number } = req.body; 
 
   if (!name && !phone_number) {
@@ -216,11 +234,10 @@ app.put('/api/profile', authenticate, async (req, res) => {
 
 
 // --- API Route 4: FETCH DASHBOARD DATA (Authenticated) ---
-// Note: This assumes you run the RLS for SELECT on the profiles table
 app.get('/api/dashboard', authenticate, async (req, res) => {
   const supabase = req.app.get('supabase');
   const userId = req.user.id; 
-
+// ... rest of the code remains the same ...
   try {
     // 1. **Fetch User-Specific Data**
     const { data: userData, error: userError } = await supabase
@@ -270,6 +287,7 @@ app.get('/api/dashboard', authenticate, async (req, res) => {
 app.post('/api/paystack-webhook', async (req, res) => {
     const supabase = req.app.get('supabase');
     const secret = process.env.PAYSTACK_SECRET_KEY;
+// ... rest of the code remains the same ...
     const hash = req.headers['x-paystack-signature'];
 
     const expectedHash = crypto.createHmac('sha512', secret)
@@ -322,8 +340,6 @@ app.use('/api', sidegameRoutes(authenticate, CATEGORY_CONFIG, PRIZES, runWeighte
 
 const createLuckyGridRoutes = require('./routes/luckyGridRoutes');
 app.use('/api/lucky-grid', createLuckyGridRoutes(authenticate));
-
-
 
 
 app.listen(port, () => {
