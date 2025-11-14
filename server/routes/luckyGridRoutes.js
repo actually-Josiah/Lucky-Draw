@@ -1,4 +1,3 @@
-//routes/luckyGridRoutes.js
 const express = require('express');
 const { sendEmail } = require('../utils/emailService');
 const cron = require('node-cron');
@@ -15,25 +14,25 @@ function isAdmin(user) {
 
 
   // GET /api/lucky-grid/active
-// GET /api/lucky-grid/active
 router.get('/active', async (req, res) => {
   const supabase = req.app.get('supabase');
 
   try {
-    // 💡 NEW: Supabase Connection Health Check
-    // This forces the underlying connection pool to re-establish a connection
-    // if the previous ones timed out during server inactivity (Render cold start).
-    // We use a simple `SELECT 1` or `now()` RPC call for minimal overhead.
+    // 💡 Health Check: Force the underlying connection pool to re-establish a connection
+    // if the previous ones timed out during server inactivity.
     const { error: healthError } = await supabase.rpc('now'); 
 
     if (healthError) {
       console.error('Supabase connection health check failed:', healthError);
       // Return a 503 Service Unavailable, prompting the client to retry.
-      return res.status(503).json({ error: 'Database connection failed to wake up. Please retry the request in a moment.' });
+      // NOTE: This is the safest response for a temporary connection wake-up failure.
+      return res.status(503).json({ 
+        error: 'Database connection failed to wake up. Please retry the request in a moment.',
+        message: 'DB_WAKEUP_FAILED' // Custom marker for frontend troubleshooting
+      });
     }
-    // The inner 'try' you had before is REMOVED here.
 
-    // All subsequent database operations now rely on the outer try block.
+    // All subsequent database operations now rely on a live connection.
     const { data: games, error: gameError } = await supabase
       .from('lucky_games')
       .select('*')
