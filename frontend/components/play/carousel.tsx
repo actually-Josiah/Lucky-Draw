@@ -8,7 +8,7 @@ const images = [
   // Updated with different placeholder paths
   { id: 1, title: "Wo Sura A, Wo Nni", image: "/maincaro1.jpeg" },
   { id: 2, title: "Stake Big And Win Big", image: "/maincaro2.jpeg" },
-  { id: 3, title: "Food Stuffs Up For Grabs", image: "/maincaro3.jpeg" },
+  { id: 3, title: "Food Stuff Up For Grabs", image: "/maincaro3.jpeg" },
   { id: 4, title: "Be The Lucky Winner", image: "/maincaro4.jpeg" },
   { id: 5, title: "Are You Feeling Lucky?", image: "/maincaro5.jpeg" },
 ]

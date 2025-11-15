@@ -158,8 +158,6 @@ app.post('/api/verify-otp', async (req, res) => {
     .upsert(
       {
         id: user.id,
-        available_game_sessions: 0,
-        total_wins: 0,
       },
       { onConflict: 'id' }
     );

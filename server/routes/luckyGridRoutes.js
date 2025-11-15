@@ -8,7 +8,10 @@ const cron = require('node-cron');
 module.exports = function (authenticate) {
   const router = express.Router();
 
-const ADMIN_EMAILS = ["josiahiscoding@gmail.com"]; // add more if needed
+const ADMIN_EMAILS = [
+    "josiahiscoding@gmail.com",
+    "Foodstuffhome1@gmail.com"
+];
 
 function isAdmin(user) {
   return ADMIN_EMAILS.includes(user.email);
@@ -419,7 +422,7 @@ const adminHtml = `
 
   // You can have multiple admin emails if you want
   const ADMIN_EMAILS = [
-    process.env.ADMIN_EMAIL || 'josiahiscoding@gmail.com'
+    process.env.ADMIN_EMAIL || 'Foodstuffhome1@gmail.com'
   ];
 
   for (const adminEmail of ADMIN_EMAILS) {

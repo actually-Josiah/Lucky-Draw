@@ -26,39 +26,27 @@ export default function Game() {
   }
 
   return (
-    // 🚀 FIXED: Added pt-20 (mobile) and sm:pt-28 (desktop) for Header spacing
     <main className="flex flex-col items-center justify-center min-h-screen bg-background p-4 pt-20 sm:p-8 sm:pt-28"> 
       <Header />
       <h1 className="text-2xl font-bold text-foreground mb-8 text-center sm:mb-12">
-        Select your preferred game
+        Play & Win THis Amazing Prize This week
       </h1>
 
-      <div className="flex flex-col sm:flex-row gap-8 w-full max-w-xl"> 
-        
-        {/* First Button with Image */}
-        <div className="flex flex-col items-center gap-4 w-full hidden">
-          <Image
-            onClick={gotowheel}
-            src="/spin2.png"
-            alt="Spin & Win Game"
-            width={400} 
-            height={400} 
-            className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer w-full h-auto" 
-          />
-          <Button className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer" onClick={gotowheel}>
-            Spin & Win
-          </Button>
-        </div>
+      {/* 🚀 FIX: Increased max-w-xl to max-w-3xl on larger screens for bigger images */}
+      <div className="flex flex-col sm:flex-row gap-8 w-full max-w-xl sm:max-w-3xl"> 
 
-        {/* Second Button with Image */}
+                {/* Second Button with Image */}
         <div className="flex flex-col items-center gap-4 w-full">
-          <Image
-            onClick={gotogrid}
-            src="/play1.jpeg"
-            alt="Twa Na Di Game"
-            width={400} 
-            height={400} 
-            className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer w-full h-auto"/>
+          {/* ✅ FIX: Aspect ratio wrapper to enforce square height */}
+          <div className="relative w-full aspect-square">
+            <Image
+              onClick={gotogrid}
+              src="/play1.jpeg"
+              alt="Twa Na Di Game"
+              fill // Use fill to size the image based on the parent container
+              className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer object-cover"
+            />
+          </div>
           <Button
             onClick={gotogrid}
             variant="outline"
@@ -66,6 +54,24 @@ export default function Game() {
             Twa Na Di
           </Button>
         </div>
+        
+        {/* First Button with Image */}
+        <div className="flex flex-col items-center gap-4 w-full">
+          {/* ✅ FIX: Aspect ratio wrapper to enforce square height */}
+          <div className="relative w-full aspect-square">
+            <Image
+              // onClick={gotowheel}
+              src="/win.jpeg"
+              alt="Spin & Win Game"
+              fill // Use fill to size the image based on the parent container
+              className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer object-cover" 
+            />
+          </div>
+          {/* <Button className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer" onClick={gotowheel}>
+            Spin & Win
+          </Button> */}
+        </div>
+
       </div>
     </main>
   )
