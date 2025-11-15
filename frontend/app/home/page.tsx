@@ -5,8 +5,8 @@
 import { useState, useEffect, useCallback } from "react" 
 import { useRouter } from "next/navigation" 
 import PlayNavbar from "@/components/play/play-navbar"
-import BuyTriesCard from "@/components/play/buy-tries-card" // <-- Imported
-import PlayHeader from "@/components/play/play-header" // <-- Re-added, assuming you still use this
+import BuyTriesCard from "@/components/play/buy-tries-card"
+import PlayHeader from "@/components/play/play-header"
 import Carousel from "@/components/play/carousel"
 import Leaderboard from "@/components/play/leaderboard"
 import HowToPlay from "@/components/play/how-to-play"

@@ -9,12 +9,6 @@ const crypto = require('crypto');
 const app = express();
 const port = process.env.PORT || 3001;
 
-// 🛑 REMOVED: Global Supabase Initialization (We now initialize per request)
-// const supabase = createClient(...)
-// app.set('supabase', supabase); // Also removed
-
-// --- Supabase Initialization Function ---
-// 💡 NEW: Function to create a fresh client instance.
 const getSupabaseClient = () => {
     return createClient(
         process.env.SUPABASE_URL,

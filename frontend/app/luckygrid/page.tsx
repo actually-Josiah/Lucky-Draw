@@ -3,6 +3,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import { useRouter } from "next/navigation"; // <-- NEW: Imported useRouter
 import { createBrowserClient } from "@supabase/ssr"
 import { RealtimePostgresChangesPayload } from "@supabase/supabase-js"
 import { Loader2 } from "lucide-react"
@@ -30,6 +31,16 @@ interface Pick {
   picked_at: string
 }
 
+// NEW: User Profile interface required for the auth check
+export interface UserProfile {
+    id: string;
+    email: string;
+    name: string | null;
+    phone_number: string | null;
+    gameTokens: number;
+    totalWins: number;
+}
+
 // NOTE: API URL
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -41,10 +52,12 @@ export default function LuckyGridPage() {
   const [picks, setPicks] = useState<Pick[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [user, setUser] = useState<UserProfile | null>(null) // <-- NEW: User state
 
   const [lastRevealedGame, setLastRevealedGame] = useState<GameData | null>(null)
   const [winner, setWinner] = useState<{ full_name: string } | null>(null)
   const [showModal, setShowModal] = useState(false)
+  const router = useRouter() // <-- NEW: Initialized router
 
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -66,92 +79,140 @@ export default function LuckyGridPage() {
       return { shouldRetry: false };
   }
 
-  // --- 1. Fetch Active Game (RETRY LOGIC) ---
-const fetchGameData = useCallback(async (retryCount = 0) => {
-  setLoading(true);
-  setError(null);
+  // --- 1. Fetch Active Game (RETRY LOGIC) - Now a helper for the authenticated function ---
+  const fetchGameData = useCallback(async (retryCount = 0) => {
+    // Note: We leave error/loading management to the parent function (fetchUserAndGameData)
 
-  try {
-    // 1. First check: is there a CLOSED game?
-    const closedRes = await fetch(`${API_URL}/api/lucky-grid/closed`);
-    const closedData = await closedRes.json();
-    
-    // Check for DB Wakeup Failure
-    const closedWakeup = await handleWakeupFailure(closedRes, closedData, retryCount, '/closed');
-    if (closedWakeup.shouldRetry) {
-        return fetchGameData(retryCount + 1);
-    }
-    
-    if (closedData.game) {
-      // CLOSED GAME FOUND
-      setGameData(closedData.game);
-      setPicks([]); 
-      setLastRevealedGame(null);
-      setWinner(null);
-      setShowModal(true); // <-- SHOW closed modal
-      return;
-    }
-
-    // 2. No closed game → check active or revealed
-    const res = await fetch(`${API_URL}/api/lucky-grid/active`);
-    const data = await res.json();
-    
-    // Check for DB Wakeup Failure
-    const activeWakeup = await handleWakeupFailure(res, data, retryCount, '/active');
-    if (activeWakeup.shouldRetry) {
-        return fetchGameData(retryCount + 1);
-    }
-
-    if (data.game) {
-      // ACTIVE or REVEALED
-      setGameData(data.game);
-      setPicks(data.picks);
-
-      if (data.game.status === "revealed") {
-        setLastRevealedGame(data.game);
-        setWinner(data.winner);
-        setShowModal(true);
-      } else {
-        setShowModal(false);
+    try {
+      // 1. First check: is there a CLOSED game?
+      const closedRes = await fetch(`${API_URL}/api/lucky-grid/closed`);
+      const closedData = await closedRes.json();
+      
+      // Check for DB Wakeup Failure
+      const closedWakeup = await handleWakeupFailure(closedRes, closedData, retryCount, '/closed');
+      if (closedWakeup.shouldRetry) {
+          return fetchGameData(retryCount + 1);
+      }
+      
+      if (closedData.game) {
+        // CLOSED GAME FOUND
+        setGameData(closedData.game);
+        setPicks([]); 
+        setLastRevealedGame(null);
+        setWinner(null);
+        setShowModal(true); // <-- SHOW closed modal
+        return;
       }
 
-      return;
+      // 2. No closed game → check active or revealed
+      const res = await fetch(`${API_URL}/api/lucky-grid/active`);
+      const data = await res.json();
+      
+      // Check for DB Wakeup Failure
+      const activeWakeup = await handleWakeupFailure(res, data, retryCount, '/active');
+      if (activeWakeup.shouldRetry) {
+          return fetchGameData(retryCount + 1);
+      }
+
+      if (data.game) {
+        // ACTIVE or REVEALED
+        setGameData(data.game);
+        setPicks(data.picks);
+
+        if (data.game.status === "revealed") {
+          setLastRevealedGame(data.game);
+          setWinner(data.winner);
+          setShowModal(true);
+        } else {
+          setShowModal(false);
+        }
+
+        return;
+      }
+
+      // 3. No closed + no active → show last revealed
+      const lastRes = await fetch(`${API_URL}/api/lucky-grid/last-revealed`);
+      const lastData = await lastRes.json();
+
+      // Check for DB Wakeup Failure
+      const revealedWakeup = await handleWakeupFailure(lastRes, lastData, retryCount, '/last-revealed');
+      if (revealedWakeup.shouldRetry) {
+          return fetchGameData(retryCount + 1);
+      }
+
+      if (lastData.game) {
+        setGameData(lastData.game);
+        setPicks([]);
+        setLastRevealedGame(lastData.game);
+        setWinner(lastData.winner);
+        setShowModal(true);
+        return;
+      }
+
+      setError("No active game available.");
+
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unexpected error");
+    } finally {
+      // We don't set loading to false here, the parent function will do it.
+    }
+  }, []);
+
+  // --- 2. NEW CORE FUNCTION: Authentication Check and Data Fetch ---
+  const fetchUserAndGameData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    
+    const token = localStorage.getItem("supabase.access_token");
+
+    // 1. 🛑 AUTH CHECK: Redirect if token is missing
+    if (!token) {
+        console.log("LuckyGrid: Token missing. Redirecting to /.");
+        router.push("/");
+        return;
+    }
+    
+    // 2. 🟢 AUTH CHECK: Make an authenticated call to validate the token
+    try {
+        const userCheckRes = await fetch(`${API_URL}/api/dashboard`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        // 🛑 AUTH CHECK: Redirect if token is expired/invalid (401)
+        if (userCheckRes.status === 401) {
+            console.log("LuckyGrid: Token expired/invalid. Redirecting to /.");
+            localStorage.removeItem("supabase.access_token");
+            router.push("/");
+            return;
+        }
+
+        if (!userCheckRes.ok) {
+            const errData = await userCheckRes.json();
+            throw new Error(errData.error || 'Failed to validate user token.');
+        }
+
+        const userData = await userCheckRes.json();
+        setUser(userData.user); // Store the validated user data
+
+    } catch (authError) {
+        console.error("LuckyGrid Auth Check Error:", authError);
+        // Fallback catch for network errors during auth check
+        router.push("/");
+        return;
     }
 
-    // 3. No closed + no active → show last revealed
-    const lastRes = await fetch(`${API_URL}/api/lucky-grid/last-revealed`);
-    const lastData = await lastRes.json();
+    // 3. 🏃‍♂️ PROCEED: If authentication passes, fetch game data
+    await fetchGameData();
+    setLoading(false); // Set loading to false only after all data is fetched
 
-    // Check for DB Wakeup Failure
-    const revealedWakeup = await handleWakeupFailure(lastRes, lastData, retryCount, '/last-revealed');
-    if (revealedWakeup.shouldRetry) {
-        return fetchGameData(retryCount + 1);
-    }
-
-    if (lastData.game) {
-      setGameData(lastData.game);
-      setPicks([]);
-      setLastRevealedGame(lastData.game);
-      setWinner(lastData.winner);
-      setShowModal(true);
-      return;
-    }
-
-    setError("No active game available.");
-
-  } catch (err) {
-    setError(err instanceof Error ? err.message : "Unexpected error");
-  } finally {
-    setLoading(false);
-  }
-}, []);
+  }, [router, fetchGameData]); // Dependencies: router and fetchGameData
 
 
   useEffect(() => {
-    fetchGameData()
-  }, [fetchGameData])
+    fetchUserAndGameData() // <-- CHANGED: Call the authenticated function
+  }, [fetchUserAndGameData])
 
-  // --- 2. Realtime Picks ---
+  // --- 3. Realtime Picks ---
   useEffect(() => {
     if (!gameData) return
 
@@ -180,14 +241,14 @@ const fetchGameData = useCallback(async (retryCount = 0) => {
     }
   }, [gameData, supabase])
 
-  // --- 3. Auto-close modal if new game starts ---
+  // --- 4. Auto-close modal if new game starts ---
   useEffect(() => {
     if (gameData?.status === "active" && showModal) {
       setShowModal(false)
     }
   }, [gameData, showModal])
   
-  // --- 4. Heartbeat to Keep VPS/DB Active (NEW) ---
+  // --- 5. Heartbeat to Keep VPS/DB Active (NEW) ---
   useEffect(() => {
     // Ping the backend every 60 seconds (60000 ms) to keep the VPS and DB connection alive.
     const intervalId = setInterval(async () => {
@@ -211,7 +272,7 @@ const fetchGameData = useCallback(async (retryCount = 0) => {
   }, []);
 
   // --- Loading/Error ---
-  if (loading) {
+  if (loading || !user) { // <-- Modified loading check to also wait for user validation
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -280,6 +341,6 @@ return (
         <GameClosedModal onClose={() => setShowModal(false)} />
       )}
 
-    </div> // <-- Closing the OUTER CONTAINER
+    </div>
   )
 }

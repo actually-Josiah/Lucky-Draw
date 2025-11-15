@@ -64,7 +64,7 @@ export default function PlayNavbar({ user, onOpenUpdateProfile }: PlayNavbarProp
         </div>
 
         {/* Desktop Navigation (Center) */}
-        <nav className="hidden md:flex items-center gap-8">
+        {/* <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
               key={link}
@@ -74,7 +74,7 @@ export default function PlayNavbar({ user, onOpenUpdateProfile }: PlayNavbarProp
               {link}
             </a>
           ))}
-        </nav>
+        </nav> */}
 
         {/* Right Section - Desktop */}
         <div className="hidden md:flex items-center gap-4">
@@ -82,7 +82,7 @@ export default function PlayNavbar({ user, onOpenUpdateProfile }: PlayNavbarProp
           {/* Game Tokens Display */}
           <div className="flex items-center bg-gray-100 px-3 py-2 rounded-full text-sm font-semibold text-slate-700">
               <Zap className="h-4 w-4 mr-1 text-yellow-500 fill-yellow-500" />
-              {user.gameTokens} Token
+              {user.gameTokens} Token(s)
           </div>
 
           <Button onClick={handlePlayNow} className="bg-red-500 hover:bg-red-400 font-semibold cursor-pointer">
@@ -164,7 +164,7 @@ export default function PlayNavbar({ user, onOpenUpdateProfile }: PlayNavbarProp
             </div>
 
             {/* Nav Links (Mobile) */}
-            {navLinks.map((link) => (
+            {/* {navLinks.map((link) => (
               <a
                 key={link}
                 href={`#${link.toLowerCase().replace(' ', '-')}`}
@@ -173,9 +173,9 @@ export default function PlayNavbar({ user, onOpenUpdateProfile }: PlayNavbarProp
               >
                 {link}
               </a>
-            ))}
+            ))} */}
             
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator /> */}
 
             {/* Action Links (Mobile) */}
             <button

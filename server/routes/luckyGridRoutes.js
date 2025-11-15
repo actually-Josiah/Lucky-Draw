@@ -27,7 +27,6 @@ async function performHealthCheck(supabase, res) {
   }
   return null; // Return null if successful
 }
-// -------------------------------------------------------------------
 
 
 // GET /api/lucky-grid/active
@@ -92,8 +91,8 @@ router.post('/create', authenticate, async (req, res) => {
     return res.status(403).json({ error: 'Forbidden. Admins only.' });
   }
 // ... rest of the code remains the same ...
-  if (![20, 30, 50, 100].includes(Number(range))) {
-    return res.status(400).json({ error: 'Invalid range. Allowed: 20, 30, 50, 100.' });
+  if (![20, 30, 50, 100, 200, 500, 1000].includes(Number(range))) {
+    return res.status(400).json({ error: 'Invalid range. Allowed: 20, 30, 50, 100, 200, 500 and 1000.' });
   }
 
   try {
@@ -363,32 +362,31 @@ let winnerAuthUser = null;
 
 if (winnerPick && winnerPick.user_id) {
 
-  // 5️⃣ Increment total wins (atomic update)
-  const { data: profileData, error: profileError } = await supabase
-    .from('profiles')
-    .update({ total_wins: supabase.rpc ? undefined : null })
-    .eq('id', winnerPick.user_id)
-    .select('*')
-    .single();
+// 5️⃣ Increment total wins (atomic update using RPC)
+const { error: rpcError } = await supabase.rpc('increment_total_wins', {
+  user_id_in: winnerPick.user_id,
+});
 
-  if (profileError) {
-    console.error('Error incrementing total_wins:', profileError);
-  } else {
-    winnerProfile = profileData;
-  }
-// ... rest of the code remains the same ...
-  // 6️⃣ Fetch name + phone from profiles table
-  const { data: profileDetails, error: profileDetailsError } = await supabase
-    .from('profiles')
-    .select('id, name, phone_number, total_wins')
-    .eq('id', winnerPick.user_id)
-    .single();
+if (rpcError) {
+  console.error('Error incrementing total_wins using RPC:', rpcError);
+} else {
+  console.log(`✅ Total wins incremented via RPC for user ${winnerPick.user_id}`);
+}
 
-  if (!profileDetailsError) {
-    winnerProfile = profileDetails;
-  }
+// 6️⃣ Fetch the updated profile data (Now we perform a separate fetch to get the NEW total_wins)
+const { data: profileDetails, error: profileDetailsError } = await supabase
+  .from('profiles')
+  .select('id, name, phone_number, total_wins')
+  .eq('id', winnerPick.user_id)
+  .single(); // We use .single() here because the row *must* exist if the RPC succeeded.
 
-  // 7️⃣ Fetch email from auth.users
+if (!profileDetailsError) {
+  winnerProfile = profileDetails;
+} else {
+  console.error('Error fetching updated winner profile:', profileDetailsError);
+}
+
+  // 7) Fetch email from auth.users
   const { data: authUserData, error: authUserError } = await supabase.auth.admin.getUserById(
     winnerPick.user_id
   );
@@ -399,10 +397,9 @@ if (winnerPick && winnerPick.user_id) {
 }
 
 
-// --- 6️⃣ Return reveal result + send admin email ---
+// --- 8 Return reveal result + send admin email ---
 try {
 const adminHtml = `
-// ... rest of the code remains the same ...
   <h3>🎉 Lucky Draw Game Ended</h3>
   <p><strong>Game ID:</strong> ${updatedGame.id}</p>
   <p><strong>Winning Number:</strong> ${winningNumber}</p>
@@ -436,6 +433,29 @@ const adminHtml = `
   console.log('✅ Admin email(s) sent successfully');
 } catch (err) {
   console.error('❌ Error sending admin email:', err);
+}
+
+// 🏆 NEW CODE BLOCK: Send Email to the Winning User
+if (winnerAuthUser?.email && winnerPick?.user_id) {
+    try {
+        const winnerName = winnerProfile?.name || "Winner";
+        const winnerHtml = `
+            <h3>🥳 Congratulations, ${winnerName}! You Won!</h3>
+            <p>We're thrilled to announce you won this week's <strong> Wo Sura A Wondi</strong> draw with your lucky number: <strong>${winningNumber}</strong>!</p>
+            <p>Our team will get in touch with you shortly on your registered phone number or email to discuss how to claim your prize.</p>
+            <p>Enjoy your day, and thank you for being a part of the Lucky Draw!</p>
+        `;
+        
+        await sendEmail(
+            winnerAuthUser.email,
+            `🎉 You Won the Lucky Draw! Winning Number: ${winningNumber}`,
+            winnerHtml
+        );
+        console.log(`✅ Winner email sent successfully to ${winnerAuthUser.email}`);
+        
+    } catch (winnerEmailErr) {
+        console.error('❌ Error sending winner email:', winnerEmailErr);
+    }
 }
 
 // Finally, respond to client
@@ -590,14 +610,5 @@ cron.schedule('0 21 * * *', async () => {
     console.error('Error sending daily update emails:', err);
   }
 });
-
-// ⚠️ Note: For the cron job to use getSupabaseClient, you must ensure
-// it is either exported/imported, or defined in a place accessible by both modules.
-// Since it's currently defined in server.js, the cron job in luckyGridRoutes.js 
-// might need a different approach if you separate the files more strictly.
-// For now, I've left the original cron job as it relies on the global scope of server.js 
-// where it's currently defined. If you move getSupabaseClient to an external utility, 
-// you would need to update the cron.schedule block in luckyGridRoutes.js.
-
   return router;
 };
