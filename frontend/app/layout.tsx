@@ -9,7 +9,11 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Foodstuff Home | Wo Sura A wondi',
+  title: 'Wo Sura A wondi | Foodstuff Home',
+    icons: {
+    icon: '/logo.ico',                 // Chrome / Opera / Firefox
+    apple: '/apple-touch-icon.png',    // Safari iOS + macOS
+  },
 }
 
 export default function RootLayout({
