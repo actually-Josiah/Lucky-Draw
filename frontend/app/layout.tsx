@@ -9,7 +9,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Luck Draw',
+  title: 'Foodstuff Home | Wo Sura A wondi',
 }
 
 export default function RootLayout({
