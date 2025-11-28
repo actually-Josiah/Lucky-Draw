@@ -31,7 +31,7 @@ export default function PlayHeader() {
     cursor-pointer
   "
 >
-  Play Now
+  Play And Win
 </Button>
       </div>
     </section>
