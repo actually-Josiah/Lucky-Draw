@@ -86,7 +86,7 @@ export default function PlayNavbar({ user, onOpenUpdateProfile }: PlayNavbarProp
           </div>
 
           <Button onClick={handlePlayNow} className="bg-red-500 hover:bg-red-400 font-semibold cursor-pointer">
-              Play Now
+              Play To Win
           </Button>
 
           <DropdownMenu>
