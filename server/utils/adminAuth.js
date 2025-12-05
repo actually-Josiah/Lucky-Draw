@@ -2,7 +2,8 @@
 
 const ADMIN_EMAILS = [
     "josiahiscoding@gmail.com",
-    "Foodstuffhome1@gmail.com"
+    "Foodstuffhome1@gmail.com",
+    "foodstuffgh.233@gmail.com"
 ];
 
 function isAdmin(email) {
