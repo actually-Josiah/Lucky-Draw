@@ -47,7 +47,8 @@ const allowedOrigins = [
   "http://10.21.136.216:3000",
   "https://homefoodstuffluckydraw.netlify.app",
   "https://wosuraawonni.cloud",
-  "https://admin.wosuraawonni.cloud" 
+  "https://admin.wosuraawonni.cloud",
+  "http://62.72.32.187:3002" 
 ];
 
 app.use(cors({
