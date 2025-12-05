@@ -1,0 +1,9 @@
+{
+  "/create-game/page": "app/create-game/page.js",
+  "/game-details/page": "app/game-details/page.js",
+  "/game-history/page": "app/game-history/page.js",
+  "/give-tokens/page": "app/give-tokens/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/payments/page": "app/payments/page.js"
+}

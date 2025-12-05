@@ -1,0 +1,895 @@
+[00:00:01.962] Server  LOG      ✓ Ready in 1287ms
+[00:00:05.010] Server  LOG      ○ Compiling /game-history ...
+[00:00:07.493] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:07.520] Server  ERROR   (node:40316) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[00:00:07.646] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:07.646] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/game-history","route":"/game-history"}
+[00:00:07.646] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-history color: rgb(120, 120, 120) color: inherit {"dp":"/game-history","o":"http://localhost:3002/game-history","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764765480394}
+[00:00:08.724] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:08.724] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/login","route":"/login"}
+[00:00:08.724] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3002/login","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764765480517}
+[00:00:10.217] Browser ERROR   uncaughtError: ReferenceError: Can't find variable: entriesLoading
+[00:00:19.550] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:19.550] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:19.550] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764765492298}
+[00:00:25.320] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764765498064}
+[00:03:46.131] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764765698878}
+[17:41:58.228] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829190812}
+[17:41:58.229] Browser ERROR   Error fetching notifications: {}
+[17:41:58.229] Browser ERROR   Error fetching notifications: {}
+[17:42:27.093] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[17:42:27.093] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/game-details","route":"/game-details"}
+[17:42:27.093] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829219184}
+[17:42:28.129] Browser ERROR   Error fetching notifications: {}
+[17:42:28.129] Browser ERROR   Error fetching notifications: {}
+[17:42:37.933] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[17:42:37.933] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/game-details","route":"/game-details"}
+[17:42:37.933] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829230024}
+[17:42:38.237] Browser ERROR   Error fetching notifications: {}
+[17:42:38.237] Browser ERROR   Error fetching notifications: {}
+[17:42:45.676] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829237763}
+[17:42:45.987] Browser ERROR   Error fetching notifications: {}
+[17:42:46.283] Browser ERROR   Error fetching notifications: {}
+[17:42:54.070] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829246157}
+[17:42:54.387] Browser ERROR   Error fetching notifications: {}
+[17:42:54.503] Browser ERROR   Error fetching notifications: {}
+[17:42:55.136] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829247224}
+[17:42:55.359] Browser ERROR   Error fetching notifications: {}
+[17:42:55.359] Browser ERROR   Error fetching notifications: {}
+[17:42:55.687] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829247775}
+[17:42:55.917] Browser ERROR   Error fetching notifications: {}
+[17:42:55.917] Browser ERROR   Error fetching notifications: {}
+[17:42:56.511] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829248600}
+[17:42:56.730] Browser ERROR   Error fetching notifications: {}
+[17:42:56.730] Browser ERROR   Error fetching notifications: {}
+[17:43:08.497] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[17:43:08.497] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/login","route":"/login"}
+[17:43:08.497] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3002/login","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829260574}
+[17:43:44.075] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829296161}
+[17:43:53.121] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829305208}
+[17:44:51.968] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829364055}
+[17:44:54.480] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-history color: rgb(120, 120, 120) color: inherit {"dp":"/game-history","o":"http://localhost:3002/game-history","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829366567}
+[17:44:56.469] Browser ERROR   uncaughtError: ReferenceError: Can't find variable: entriesLoading
+[17:49:34.682] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[17:49:34.878] Server  LOG      ✓ Compiled in 191ms
+[17:49:35.473] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[17:49:35.473] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/game-history","route":"/game-history"}
+[17:49:35.473] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-history color: rgb(120, 120, 120) color: inherit {"dp":"/game-history","o":"http://localhost:3002/game-history","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829647558}
+[17:49:40.322] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[17:49:40.322] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[17:50:01.145] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[17:50:01.146] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[17:50:07.920] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[17:50:07.920] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[17:50:10.992] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829683072}
+[17:50:17.436] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829689517}
+[17:50:20.262] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829692343}
+[17:50:26.901] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829698981}
+[17:50:28.699] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829700779}
+[17:50:30.974] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-history color: rgb(120, 120, 120) color: inherit {"dp":"/game-history","o":"http://localhost:3002/game-history","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829703054}
+[17:50:33.845] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829705926}
+[17:50:35.466] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829707547}
+[17:50:36.868] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829708950}
+[17:50:38.473] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-history color: rgb(120, 120, 120) color: inherit {"dp":"/game-history","o":"http://localhost:3002/game-history","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829710553}
+[17:50:40.417] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/payments color: rgb(120, 120, 120) color: inherit {"dp":"/payments","o":"http://localhost:3002/payments","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829712498}
+[17:54:25.816] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764829937900}
+[33:18:51.402] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764885403266}
+[33:18:51.765] Browser ERROR   Error fetching notifications: {}
+[33:18:52.080] Browser ERROR   Error fetching notifications: {}
+[33:18:59.759] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764885411627}
+[33:19:00.088] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/payments color: rgb(120, 120, 120) color: inherit {"dp":"/payments","o":"http://localhost:3002/payments","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764885411940}
+[33:19:00.088] Browser ERROR   Error fetching notifications: {}
+[33:19:00.088] Browser ERROR   Error fetching notifications: {}
+[33:19:00.290] Browser ERROR   Error fetching notifications: {}
+[33:19:00.290] Browser ERROR   Error fetching notifications: {}
+[33:19:11.522] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[33:19:11.522] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/login","route":"/login"}
+[33:19:11.522] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3002/login","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764885423394}
+[33:19:14.546] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[33:19:14.546] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/login","route":"/login"}
+[33:19:14.546] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3002/login","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764885426418}
+[33:20:00.870] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764885472738}
+[33:20:59.285] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-history color: rgb(120, 120, 120) color: inherit {"dp":"/game-history","o":"http://localhost:3002/game-history","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764885531154}
+[33:21:02.095] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764885533964}
+[33:21:04.459] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764885536326}
+[42:06:41.734] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764917073686}
+[42:06:42.364] Browser ERROR   Error fetching notifications: {}
+[42:06:42.503] Browser ERROR   Error fetching notifications: {}
+[42:06:51.347] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[42:06:51.347] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/login","route":"/login"}
+[42:06:51.347] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3002/login","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764917083304}
+[42:07:36.436] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764917128390}
+[42:12:54.952] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/payments color: rgb(120, 120, 120) color: inherit {"dp":"/payments","o":"http://localhost:3002/payments","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764917446906}
+[42:13:38.323] Server  LOG      ✓ Compiled in 400ms
+[42:17:06.512] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-history color: rgb(120, 120, 120) color: inherit {"dp":"/game-history","o":"http://localhost:3002/game-history","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764917698471}
+[42:17:09.613] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764917701571}
+[42:17:11.408] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764917703367}
+[42:17:13.897] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764917705855}
+[42:19:03.668] Server  LOG      ✓ Compiled in 76ms
+[42:19:09.161] Server  LOG      ✓ Compiled in 59ms
+[42:25:22.009] Server  LOG      ✓ Compiled in 270ms
+[42:25:22.136] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:25:22.136] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:25:22.326] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:25:22.326] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:40.411] Server  ERROR    ⨯ ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+
+./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+[42:26:40.534] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:40.534] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:41.464] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:41.464] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:41.464] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:41.464] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.319] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.319] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.319] Browser ERROR   uncaughtError: Error: ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+[42:26:42.319] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.319] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:10
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |          ^^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:26:42.327] Browser ERROR   ./app/page.tsx:1:21
+Ecmascript file had an error
+> 1 | import { useEffect, useState, useMemo } from "react"
+    |                     ^^^^^^^^
+  2 | import { AdminLayout } from "@/components/admin-layout"
+  3 | import { StatsCard } from "@/components/stats-card"
+  4 | import { UsersTable } from "@/components/users-table"
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+[42:30:41.829] Server  LOG      ✓ Compiled in 59ms
+[42:30:42.870] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[42:30:42.870] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[42:30:42.870] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764918514837}
+[42:47:22.449] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[42:47:22.449] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[42:47:22.449] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764919514424}
+[42:52:00.473] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[42:52:00.473] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[42:52:00.473] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764919792398}
+[42:52:04.817] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/payments color: rgb(120, 120, 120) color: inherit {"dp":"/payments","o":"http://localhost:3002/payments","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764919796741}
+[42:54:23.650] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[42:54:23.650] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/payments","route":"/payments"}
+[42:54:23.650] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/payments color: rgb(120, 120, 120) color: inherit {"dp":"/payments","o":"http://localhost:3002/payments","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764919935575}
+[42:54:51.944] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/give-tokens color: rgb(120, 120, 120) color: inherit {"dp":"/give-tokens","o":"http://localhost:3002/give-tokens","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764919963843}
+[43:21:22.045] Server  LOG      ✓ Compiled in 68ms
+[43:23:29.709] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/payments color: rgb(120, 120, 120) color: inherit {"dp":"/payments","o":"http://localhost:3002/payments","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764921681466}
+[43:23:34.061] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/give-tokens color: rgb(120, 120, 120) color: inherit {"dp":"/give-tokens","o":"http://localhost:3002/give-tokens","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764921685817}
+[43:23:45.304] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764921697060}
+[43:23:51.217] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764921702975}
+[43:23:54.235] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764921705992}
+[43:29:45.258] Server  LOG      ✓ Compiled in 163ms
+[43:30:46.239] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/give-tokens color: rgb(120, 120, 120) color: inherit {"dp":"/give-tokens","o":"http://localhost:3002/give-tokens","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922118043}
+[43:30:48.032] Browser ERROR   uncaughtError: ReferenceError: Can't find variable: Popover
+[43:34:42.136] Server  LOG      ✓ Compiled in 166ms
+[43:34:42.140] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[43:34:42.228] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/give-tokens color: rgb(120, 120, 120) color: inherit {"dp":"/give-tokens","o":"http://localhost:3002/give-tokens","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922354105}
+[43:34:42.693] Browser ERROR   Error fetching users: {}
+[43:34:42.693] Browser ERROR   Error fetching notifications: {}
+[43:34:42.693] Browser ERROR   Error fetching notifications: {}
+[43:34:43.558] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[43:34:43.558] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/give-tokens","route":"/give-tokens"}
+[43:34:43.558] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/give-tokens color: rgb(120, 120, 120) color: inherit {"dp":"/give-tokens","o":"http://localhost:3002/give-tokens","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922355364}
+[43:36:13.638] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922445440}
+[43:38:07.296] Server  LOG      ✓ Compiled in 145ms
+[43:38:07.418] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+  99 |
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:38:08.325] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+  99 |
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:41:14.481] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:41:15.326] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:41:54.840] Server  ERROR    ⨯ ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+
+[43:41:55.187] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:41:55.187] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[43:41:55.187] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-details/page.tsx [Client Component Browser]
+    ./app/game-details/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-details/page.tsx [Client Component SSR]
+    ./app/game-details/page.tsx [Server Component]
+[43:41:55.187] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/create-game/page.tsx [Client Component Browser]
+    ./app/create-game/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/create-game/page.tsx [Client Component SSR]
+    ./app/create-game/page.tsx [Server Component]
+[43:41:55.187] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/payments/page.tsx [Client Component Browser]
+    ./app/payments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/payments/page.tsx [Client Component SSR]
+    ./app/payments/page.tsx [Server Component]
+[43:41:55.187] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/give-tokens/page.tsx [Client Component Browser]
+    ./app/give-tokens/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/give-tokens/page.tsx [Client Component SSR]
+    ./app/give-tokens/page.tsx [Server Component]
+[43:41:55.187] Browser ERROR   uncaughtError: Error: ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+
+
+[43:41:55.187] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:41:55.326] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:41:55.326] Browser ERROR   ./components/admin-sidebar.tsx:98:13
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>
+     |             ^
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:42:23.326] Browser ERROR   ./components/admin-sidebar.tsx:98:14
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>)
+     |              ^
+
+Expected '}', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:42:23.327] Browser ERROR   ./components/admin-sidebar.tsx:98:14
+Parsing ecmascript source code failed
+  96 |         {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+  97 |       </button>
+> 98 |     </aside>)
+     |              ^
+
+Expected '}', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./components/admin-sidebar.tsx [Client Component Browser]
+    ./components/admin-layout.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Client Component Browser]
+    ./app/game-history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/admin-sidebar.tsx [Client Component SSR]
+    ./components/admin-layout.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Client Component SSR]
+    ./app/game-history/page.tsx [Server Component]
+[43:42:27.890] Server  LOG      ✓ Compiled in 59ms
+[43:42:28.908] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[43:42:28.908] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[43:42:28.908] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922820773}
+[43:43:02.303] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922854166}
+[43:43:04.883] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922856747}
+[43:43:07.873] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/give-tokens color: rgb(120, 120, 120) color: inherit {"dp":"/give-tokens","o":"http://localhost:3002/give-tokens","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922859737}
+[43:43:13.079] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922864943}
+[43:44:01.445] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3002/login","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764922913309}
+[43:47:51.510] Server  LOG      ✓ Compiled in 80ms
+[43:48:03.830] Browser ERROR   uncaughtError: Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `LoginPage`.
+[43:48:04.326] Browser ERROR   uncaughtError: Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `LoginPage`.
+[43:48:28.875] Server  ERROR    ⨯ Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+[43:48:29.146] Browser ERROR   uncaughtError: Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `LoginPage`.
+[44:16:45.428] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[44:16:45.429] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[44:16:45.634] Server  LOG      ✓ Compiled in 121ms
+[44:16:46.192] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[44:16:46.523] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[44:16:46.523] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/login","route":"/login"}
+[44:16:46.523] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3002/login","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764924878431}
+[44:16:47.326] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[44:16:47.326] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/login","route":"/login"}
+[44:16:47.326] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3002/login","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764924878421}
+[44:18:28.384] Server  LOG      ✓ Compiled in 64ms
+[44:18:34.120] Server  LOG      ✓ Compiled in 64ms
+[44:18:35.784] Server  LOG      ✓ Compiled in 165ms
+[44:18:47.244] Server  LOG      ✓ Compiled in 66ms
+[44:18:54.917] Server  LOG      ✓ Compiled in 155ms
+[44:19:00.371] Server  LOG      ✓ Compiled in 157ms
+[44:19:06.367] Server  LOG      ✓ Compiled in 165ms
+[53:35:10.262] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[53:35:10.262] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/login","route":"/login"}
+[53:35:10.262] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3002/login","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958382020}
+[53:35:49.475] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958421227}
+[53:35:56.757] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958428512}
+[53:36:00.969] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958432724}
+[53:36:13.054] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958444809}
+[53:36:15.126] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958446881}
+[53:38:05.992] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958557746}
+[53:38:09.180] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-history color: rgb(120, 120, 120) color: inherit {"dp":"/game-history","o":"http://localhost:3002/game-history","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958560935}
+[53:38:10.963] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[53:38:10.963] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[53:38:15.689] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958567444}
+[53:39:01.814] Server  LOG      ✓ Compiled in 71ms
+[53:39:01.909] Browser ERROR   Received `%s` for a non-boolean attribute `%s`.
+
+If you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}. true cl cl true cl
+[53:39:02.846] Server  LOG      ✓ Compiled in 60ms
+[53:39:05.958] Server  LOG      ✓ Compiled in 54ms
+[53:39:14.846] Server  LOG      ✓ Compiled in 70ms
+[53:39:32.511] Server  LOG      ✓ Compiled in 55ms
+[53:39:34.744] Server  LOG      ✓ Compiled in 65ms
+[53:39:37.741] Server  LOG      ✓ Compiled in 88ms
+[53:41:52.173] Server  LOG      ✓ Compiled in 119ms
+[53:42:04.582] Server  LOG      ✓ Compiled in 68ms
+[53:42:06.262] Server  LOG      ✓ Compiled in 139ms
+[53:42:15.039] Server  LOG      ✓ Compiled in 67ms
+[53:42:25.224] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958816976}
+[53:42:32.292] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958824045}
+[53:42:34.755] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958826510}
+[53:42:36.205] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958827960}
+[53:42:39.058] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958830813}
+[53:42:48.841] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958840596}
+[53:43:15.275] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/give-tokens color: rgb(120, 120, 120) color: inherit {"dp":"/give-tokens","o":"http://localhost:3002/give-tokens","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958867031}
+[53:43:17.998] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/payments color: rgb(120, 120, 120) color: inherit {"dp":"/payments","o":"http://localhost:3002/payments","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958869754}
+[53:43:20.519] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-history color: rgb(120, 120, 120) color: inherit {"dp":"/game-history","o":"http://localhost:3002/game-history","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958872274}
+[53:43:22.195] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/create-game color: rgb(120, 120, 120) color: inherit {"dp":"/create-game","o":"http://localhost:3002/create-game","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958873950}
+[53:43:23.744] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/game-details color: rgb(120, 120, 120) color: inherit {"dp":"/game-details","o":"http://localhost:3002/game-details","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958875495}
+[53:43:25.053] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3002/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1764958876808}

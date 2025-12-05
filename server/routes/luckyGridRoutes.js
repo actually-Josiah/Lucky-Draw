@@ -8,14 +8,7 @@ const cron = require('node-cron');
 module.exports = function (authenticate) {
   const router = express.Router();
 
-const ADMIN_EMAILS = [
-    "josiahiscoding@gmail.com",
-    "Foodstuffhome1@gmail.com"
-];
-
-function isAdmin(user) {
-  return ADMIN_EMAILS.includes(user.email);
-}
+const { isAdmin, ADMIN_EMAILS } = require('../utils/adminAuth');
 
 // --- Helper function to handle the Supabase connection health check ---
 // NOTE: Use req.supabase or req.app.get('supabase') depending on where you call this.
@@ -88,10 +81,14 @@ router.post('/create', authenticate, async (req, res) => {
   const supabase = req.supabase;
   const user = req.user;
 // ... rest of the code remains the same ...
-  const { range = 100 } = req.body; 
+  const { range = 100, title, description } = req.body; 
 
-  if (!isAdmin(user)) {
+  if (!isAdmin(user.email)) {
     return res.status(403).json({ error: 'Forbidden. Admins only.' });
+  }
+
+  if (!title) {
+    return res.status(400).json({ error: 'Game title is required.' });
   }
 // ... rest of the code remains the same ...
   if (![20, 30, 50, 100, 200, 500, 1000].includes(Number(range))) {
@@ -114,6 +111,8 @@ router.post('/create', authenticate, async (req, res) => {
         {
           range: Number(range),
           status: 'active',
+          title: title,
+          description: description,
         },
       ])
       .select('*')
@@ -302,7 +301,7 @@ router.post('/reveal', authenticate, async (req, res) => {
 // ... rest of the code remains the same ...
   const { manualNumber = null } = req.body; 
 
-  if (!isAdmin(user)) {
+  if (!isAdmin(user.email)) {
     return res.status(403).json({ error: 'Forbidden. Admins only.' });
   }
 
@@ -420,10 +419,7 @@ const adminHtml = `
 `;
 
 
-  // You can have multiple admin emails if you want
-  const ADMIN_EMAILS = [
-    process.env.ADMIN_EMAIL || 'Foodstuffhome1@gmail.com'
-  ];
+  
 
   for (const adminEmail of ADMIN_EMAILS) {
     await sendEmail(

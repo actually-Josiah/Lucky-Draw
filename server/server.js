@@ -17,6 +17,8 @@ const getSupabaseClient = () => {
     );
 }
 
+const { isAdmin } = require('./utils/adminAuth');
+
 // --- Prize Config ---
 const { PRIZES, CATEGORY_CONFIG } = require('./config/prizes');
 
@@ -41,9 +43,11 @@ function runWeightedDraw(config) {
 // --- Middleware Setup ---
 const allowedOrigins = [
   "http://localhost:3000",
+  "http://localhost:3002",
   "http://10.21.136.216:3000",
   "https://homefoodstuffluckydraw.netlify.app",
-  "https://wosuraawonni.cloud"
+  "https://wosuraawonni.cloud",
+  "https://admin.wosuraawonni.cloud"
 ];
 
 app.use(cors({
@@ -105,10 +109,17 @@ app.get('/', (req, res) => {
 app.post('/api/register-otp', async (req, res) => {
   const supabase = req.app.get('supabase');
 
-  const { email } = req.body; 
-// ... rest of the code remains the same ...
+  const { email, is_admin_login } = req.body; 
+
   if (!email) {
     return res.status(400).json({ error: 'Email address is required.' });
+  }
+
+  // If this is an admin login, check if the email is in the admin list
+  if (is_admin_login) {
+    if (!isAdmin(email)) {
+      return res.status(403).json({ error: 'Access denied. This email is not authorized for admin access.' });
+    }
   }
 
   // Use Supabase to send the OTP (Magic Link/Passwordless Auth)
@@ -294,10 +305,10 @@ app.post('/api/paystack-webhook', async (req, res) => {
     const event = JSON.parse(req.body.toString('utf8'));
 
     if (event.event === 'charge.success') {
-        const { metadata } = event.data;
+        const { metadata, reference, amount, status } = event.data;
         
         if (!metadata || !metadata.user_id || !metadata.tokens_to_add) {
-            console.error('Webhook Error: Missing required metadata.');
+            console.error('Webhook Error: Missing required metadata from Paystack.');
             return res.status(400).end();
         }
 
@@ -305,21 +316,46 @@ app.post('/api/paystack-webhook', async (req, res) => {
         const tokensToAdd = metadata.tokens_to_add;
 
         try {
-            const { error: rpcError } = await supabase.rpc('add_tokens', {
-                user_id_in: userId,
-                tokens_in: tokensToAdd,
-            });
+            // We want to do two things: add tokens and log the payment.
+            // Promise.all ensures both are attempted.
+            const [rpcResult, insertResult] = await Promise.all([
+                // 1. Add tokens to the user's profile
+                supabase.rpc('add_tokens', {
+                    user_id_in: userId,
+                    tokens_in: tokensToAdd,
+                }),
+                // 2. Log the transaction in the new 'payments' table
+                supabase.from('payments').insert([
+                    {
+                        user_id: userId,
+                        amount: amount, // Amount from Paystack (in kobo/pesewas)
+                        paystack_reference: reference,
+                        status: status,
+                        tokens_purchased: tokensToAdd,
+                    },
+                ])
+            ]);
 
-            if (rpcError) {
-                console.error('RPC Token Update Error:', rpcError);
-                return res.status(500).end();
+            if (rpcResult.error) {
+                // Log the error but don't fail the entire transaction if the payment log succeeded
+                console.error('RPC Token Update Error:', rpcResult.error);
+            }
+            if (insertResult.error) {
+                 // Log the error but don't fail the entire transaction if the token update succeeded
+                console.error('Payment Insert Error:', insertResult.error);
             }
 
-            console.log(`✅ Tokens added for user ${userId} → +${tokensToAdd}`);
+            if(rpcResult.error || insertResult.error) {
+                // If either failed, return a server error but acknowledge receipt to Paystack
+                // This prevents Paystack from retrying a partially successful transaction
+                return res.status(500).send('Server error during webhook processing.');
+            }
+
+            console.log(`✅ Payment logged and tokens added for user ${userId} → +${tokensToAdd}`);
             return res.status(200).end();
 
         } catch (dbError) {
-            console.error('Database error during token update:', dbError);
+            console.error('Database error during webhook processing:', dbError);
             return res.status(500).end();
         }
     }
@@ -332,6 +368,10 @@ app.use('/api', sidegameRoutes(authenticate, CATEGORY_CONFIG, PRIZES, runWeighte
 
 const createLuckyGridRoutes = require('./routes/luckyGridRoutes');
 app.use('/api/lucky-grid', createLuckyGridRoutes(authenticate));
+
+const createAdminRoutes = require('./routes/AdminRoutes');
+app.use('/api/admin', authenticate, createAdminRoutes(authenticate));
+
 
 
 app.listen(port, () => {
