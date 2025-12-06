@@ -308,7 +308,7 @@ return (
 
       {/* 2. BLURRED BACKGROUND LAYER (The Fix) */}
       <div 
-        className="absolute inset-0 bg-[url('/gridbg.png')] bg-cover bg-center bg-no-repeat blur-[2px]"
+        className="absolute inset-0 bg-[url('/gridbg2.png')] bg-cover bg-center bg-no-repeat blur-[2px]"
       >
         {/* Optional: Add a subtle overlay here for better text contrast */}
         <div className="absolute inset-0 bg-black/10"></div>

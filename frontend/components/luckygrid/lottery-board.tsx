@@ -30,14 +30,17 @@ interface LotteryBoardProps {
 }
 
 const colors = [
-  "bg-red-500",
-  "bg-green-500",
-  "bg-blue-500",
-  "bg-yellow-500",
-  "bg-purple-500",
-  "bg-pink-500",
-  "bg-indigo-500",
-  "bg-teal-500",
+ "bg-red-700",     // Deep Santa Red
+  "bg-green-800",   // Pine Forest Green
+  "bg-amber-500",   // Warm Gold/Lights
+  "bg-rose-800",    // Cranberry/Burgundy
+  "bg-emerald-600", // Bright Holly Leaf Green
+  "bg-blue-900",    // "Silent Night" Deep Blue
+  "bg-orange-700",  // Gingerbread/Spice
+  "bg-teal-700",    // Deep Winter Teal
+  "bg-purple-800",  // Sugarplum
+  "bg-slate-500",   // Silver Bells/Tinsel
+  "bg-yellow-400"
 ]
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
