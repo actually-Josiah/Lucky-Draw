@@ -1,27 +1,28 @@
 import { Card } from "@/components/ui/card"
+import { Info } from "lucide-react"
 
 const rules = [
   {
     title: "Purchase Game Tokens",
     description: "Click the 'Buy Tokens' button and select the amount of tokens to buy.",
-    image: "/htp1.png",
+    image: "/buy.png",
   },
   {
     title: "Try your luck, compete and win",
-    description: "Click Play Now and select your preferred game to play.",
-    image: "/htp2.png",
+    description: "Click Play To Win and select your preferred game to play.",
+    image: "/playing.png",
   },
   {
     title: "Earn Rewards",
     description:
-      "Compete against other players and earn points. The more you win, the higher you climb the leaderboard.",
-    image: "/htp3.png",
+      "Select your lucky number and compete with other players in realtime and stand a chance of winning.",
+    image: "/winning.png",
   },
   {
     title: "Claim Prizes Weekly",
     description:
-      "Unlock achievements and special rewards as you progress. Reach milestones to unlock exclusive content.",
-    image: "/htp4.png",
+      "Claim you prize after the game ends. Prizes are distributed weekly to all winners.",
+    image: "/going.png",
   },
 ]
 
@@ -57,6 +58,12 @@ export default function HowToPlay() {
             />
           </Card>
         ))}
+      </div>
+
+      {/* AI Generated Disclaimer */}
+      <div className="mt-8 flex items-center justify-center gap-2 text-muted-foreground opacity-75">
+        <Info className="h-4 w-4" />
+        <p className="text-sm hover:text-red-500">All images are AI generated</p>
       </div>
     </section>
   )

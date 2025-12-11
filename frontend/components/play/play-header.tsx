@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation" 
+import { Zap } from "lucide-react"
+
 
 export default function PlayHeader() {
   const router = useRouter()
@@ -31,7 +33,7 @@ export default function PlayHeader() {
     cursor-pointer
   "
 >
-  Play To Win
+  <Zap className="h-5 w-5 mr-2" />Play To Win
 </Button>
       </div>
     </section>

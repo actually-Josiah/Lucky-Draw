@@ -194,7 +194,7 @@ export default function PlayNavbar({ user, onOpenUpdateProfile }: PlayNavbarProp
             </button>
 
             <Button onClick={handlePlayNow} className="w-full mt-4 bg-red-500 hover:bg-red-400 font-semibold">
-                <Zap className="h-5 w-5 mr-2" /> Play To. Win
+                <Zap className="h-5 w-5 mr-2" /> Play To Win
             </Button>
           </div>
         </div>
