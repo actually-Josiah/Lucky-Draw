@@ -8,7 +8,7 @@ import PlayNavbar from "@/components/play/play-navbar"
 import BuyTriesCard from "@/components/play/buy-tries-card"
 import PlayHeader from "@/components/play/play-header"
 import Carousel from "@/components/play/carousel"
-import Leaderboard from "@/components/play/leaderboard"
+import Sponsors from "@/components/play/sponsors"
 import HowToPlay from "@/components/play/how-to-play"
 import UpdateProfileModal from "@/components/play/update-profile-modal"
 import { Loader2 } from "lucide-react"
@@ -151,7 +151,7 @@ try {
         </div>
           
         <div className="container mx-auto px-4">
-          <Leaderboard />
+          <Sponsors />
           <HowToPlay />
         </div>
       </main>

@@ -8,10 +8,12 @@ server/node_modules/
 *.env
 .env.local
 *.env.local
+.next/
 
 # Build files
 frontend/dist/
 frontend/build/
+frontend/.next/
 server/dist/
 
 # OS / editor junk

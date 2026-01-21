@@ -338,6 +338,110 @@ module.exports = function (authenticate) {
         }
     });
 
+    /**
+     * @route GET /api/admin/wheel-rewards
+     * @description Fetches all wheel game rewards with filtering options.
+     * @access Admin only
+     */
+    router.get('/wheel-rewards', async (req, res) => {
+        const supabase = req.supabase;
+        const { status, spin_code, page = 1 } = req.query;
+        const limit = 25;
+        const from = (page - 1) * limit;
+        const to = from + limit - 1;
+
+        try {
+            // Base query with count
+            let query = supabase
+                .from('wheel_rewards')
+                .select(`
+                    id,
+                    created_at,
+                    status,
+                    claimed_at,
+                    spin_code,
+                    prize_name,
+                    user:profiles!user_id ( id, name, phone_number )
+                `, { count: 'exact' });
+
+            // Apply filters
+            if (status && status !== 'all') {
+                query = query.eq('status', status);
+            }
+            if (spin_code) {
+                query = query.ilike('spin_code', `%${spin_code}%`);
+            }
+
+            // Apply ordering and pagination
+            query = query.order('created_at', { ascending: false }).range(from, to);
+
+            const { data, error, count } = await query;
+
+            if (error) {
+                console.error('Error fetching wheel rewards:', error);
+                return res.status(500).json({ error: 'Failed to fetch wheel rewards.' });
+            }
+
+            // Flatten the nested user data
+            const formattedData = data.map(r => ({
+                ...r,
+                user_id: r.user?.id,
+                user_name: r.user?.name,
+                user_phone: r.user?.phone_number,
+                user: undefined
+            }));
+            
+            res.status(200).json({ 
+                rewards: formattedData,
+                total: count
+            });
+
+        } catch (err) {
+            console.error('Server error in GET /wheel-rewards:', err);
+            res.status(500).json({ error: 'An unexpected server error occurred.' });
+        }
+    });
+
+    /**
+     * @route PUT /api/admin/wheel-rewards/:rewardId/claim
+     * @description Marks a wheel reward as claimed.
+     * @access Admin only
+     */
+    router.put('/wheel-rewards/:rewardId/claim', async (req, res) => {
+        const supabase = req.supabase;
+        const { rewardId } = req.params;
+
+        if (!rewardId) {
+            return res.status(400).json({ error: 'Reward ID is required.' });
+        }
+
+        try {
+            const { data, error } = await supabase
+                .from('wheel_rewards')
+                .update({
+                    status: 'claimed',
+                    claimed_at: new Date().toISOString()
+                })
+                .eq('id', rewardId)
+                .select()
+                .single(); // Use single to ensure we get a response and error if not found
+
+            if (error) {
+                if (error.code === 'PGRST116') { // PostgREST error for "0 rows returned"
+                    return res.status(404).json({ error: 'Reward not found.' });
+                }
+                console.error('Error claiming wheel reward:', error);
+                return res.status(500).json({ error: 'Failed to claim wheel reward.' });
+            }
+
+            res.status(200).json({ message: 'Reward marked as claimed successfully.', reward: data });
+
+        } catch (err) {
+            console.error(`Server error in PUT /wheel-rewards/${rewardId}/claim:`, err);
+            res.status(500).json({ error: 'An unexpected server error occurred.' });
+        }
+    });
+
 
     return router;
 };

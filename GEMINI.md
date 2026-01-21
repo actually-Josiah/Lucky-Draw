@@ -6,170 +6,126 @@ This project implements a "Lucky Draw" application with a user-facing frontend, 
 
 The project is structured into three main parts:
 
-1.  **`frontend/`**: The main user-facing Next.js application, built with React and likely styled with Tailwind CSS and Shadcn UI (inferred from `Admin` app dependencies).
-2.  **`Admin/`**: A separate Next.js application serving as the administration dashboard, also built with React, TypeScript, Tailwind CSS, and Shadcn UI.
-3.  **`server/`**: A Node.js and Express.js backend API that handles business logic, interacts with Supabase, processes webhooks (e.g., Paystack), and serves as the central hub for data operations.
+1.  **`frontend/`**: The main user-facing Next.js application.
+2.  **`Admin/`**: A separate Next.js application for administration.
+3.  **`server/`**: A Node.js and Express.js backend API that handles business logic and acts as a central hub.
 
-## Key Technologies
+---
 
-*   **Frontend/Admin:** Next.js (React, TypeScript), Tailwind CSS, Shadcn UI, Lucide Icons, `cmdk` (Command Menu), `zod` (validation).
-*   **Backend:** Node.js, Express.js, Supabase Client Library (`@supabase/supabase-js`), `dotenv`, `cors`, `crypto`, `node-cron`, `nodemailer` (for email services).
-*   **Database:** Supabase (PostgreSQL, Authentication, Realtime).
-*   **Payments:** Paystack integration via webhooks.
+## 1. Backend (`server/`)
+
+The backend is an Express.js server that manages authentication (via Supabase), payment webhooks, and the core game logic.
+
+### Key Technologies
+- **Express.js (v5.1.0)**: Web framework.
+- **Supabase JS Client**: Database and Auth interaction.
+- **Nodemailer**: For sending game confirmations and win notifications.
+- **Node-cron**: For scheduled tasks (e.g., daily game updates).
+- **Paystack SDK**: (Inferred) for payment processing.
+
+### API Routes
+- **Authentication**:
+    - `POST /api/register-otp`: Sends a Magic Link/OTP via Supabase Auth.
+    - `POST /api/verify-otp`: Verifies OTP and ensures a user profile exists in the `profiles` table.
+- **Dashboard**:
+    - `GET /api/dashboard`: Fetches user-specific stats (tokens, wins) and global leaderboard data.
+- **Lucky Grid Game (`/api/lucky-grid`)**:
+    - `GET /active`: Fetches the current active game and its picks.
+    - `POST /create`: (Admin) Creates a new game with a specified range.
+    - `POST /pick`: (User) Submits number picks, deducts tokens, and sends email confirmation.
+    - `POST /reveal`: (Admin) Randomly or manually picks a winner, updates game status, and notifies admin/winner via email.
+    - `GET /last-revealed`: Fetches the most recently completed game.
+- **Wheel Game (`/api/wheel-game`)**:
+    - `GET /prizes`: Lists available prizes and their probabilities.
+    - `POST /spin`: Deducts a token, runs a weighted draw, logs the result, and notifies the user if they won.
+    - `GET /recent-wins`: Returns a list of the latest winners.
+- **Admin (`/api/admin`)**:
+    - `GET /stats`: Aggregated dashboard stats (revenue, users, games).
+    - `GET /users`: Paginated list of all users and their profiles.
+    - `POST /give-tokens`: Allows an admin to manually add tokens to a user's account.
+    - `GET /wheel-rewards`: Filterable list of prizes won on the wheel.
+- **Webhooks**:
+    - `POST /api/paystack-webhook`: Processes successful Paystack charges to add tokens to user accounts.
+
+---
+
+## 2. Frontend (`frontend/`)
+
+The user-facing app is a Next.js (App Router) project styled with Tailwind CSS.
+
+### Key Pages
+- **Login (`/`)**: OTP-based authentication entry point.
+- **Home (`/home`)**: Dashboard showing token balance, game carousels, "How to Play" section, and sponsorship logos.
+- **Lucky Grid (`/luckygrid`)**: The main grid-based game where users pick numbers.
+- **Wheel of Fortune (`/wheel`)**: A spin-to-win game.
+- **Lucky Card (`/luckycard`)**: (Inferred) Card-based game.
+
+### UI Components
+- **PlayNavbar**: Persistent navigation with user profile access.
+- **BuyTriesCard**: Integration with Paystack for token purchases.
+- **Sponsors**: Displays partner logos (Yango, Caritas).
+- **Leaderboard**: Displays top winners (currently hidden/replaced by Sponsors).
+
+---
+
+## 3. Admin Dashboard (`Admin/`)
+
+A protected dashboard for managing games, users, and viewing system health.
+
+### Key Features
+- **Secure Login**: Restricted to a pre-defined list of admin emails via OTP.
+- **Game Management**: Create new Lucky Grid games, reveal winners, and view game history.
+- **User Management**: Search users and manually award tokens.
+- **Payment Tracking**: View a log of all Paystack transactions.
+- **Notifications**: Real-time alerts for new registrations and payments.
+- **Wheel Rewards**: Track and manage prizes won via the wheel game.
+
+---
+
+## 4. Database Schema (Supabase)
+
+### Principal Tables
+- **`profiles`**: User metadata (name, phone, tokens, total wins).
+- **`lucky_games`**: Records of grid games (range, winning number, status).
+- **`lucky_picks`**: Map of user selections to specific games and numbers.
+- **`payments`**: Log of all successful financial transactions.
+- **`wheel_prizes`**: Configuration for the wheel game (name, probability, image).
+- **`wheel_game_spins`**: History of every wheel spin.
+- **`wheel_rewards`**: Records of actual prizes won that need fulfillment.
+- **`notifications`**: System alerts for administrators.
+
+---
+
+## 5. Security & Vulnerabilities (Audited Dec 2025)
+
+The following areas have been identified for improvement (see `vuls.txt` for details):
+1.  **Atomicity**: Token deduction in `/pick` is not currently atomic with the insert operation.
+2.  **Hardcoded Data**: Admin emails are hardcoded in the server logic.
+3.  **Insecure Randomness**: Game winners are picked using `Math.random()` instead of `crypto`.
+4.  **Auth Storage**: Admin tokens are stored in `localStorage` instead of `httpOnly` cookies.
+5.  **Rate Limiting**: Missing on sensitive endpoints like OTP requests and game plays.
+
+---
 
 ## Setup and Running
 
-Each part of the application needs to be set up and run independently.
-
-### 1. Backend (`server/`)
-
-**Dependencies:**
-*   `@supabase/supabase-js`
-*   `cors`
-*   `dotenv`
-*   `express`
-*   `node-cron`
-*   `nodemailer`
-*   `nodemon` (dev dependency)
-
-**Environment Variables (`server/.env`):**
-Create a `.env` file in the `server/` directory with the following:
-```
-SUPABASE_URL="YOUR_SUPABASE_PROJECT_URL"
-SUPABASE_SERVICE_KEY="YOUR_SUPABASE_SERVICE_ROLE_KEY"
-PAYSTACK_SECRET_KEY="YOUR_PAYSTACK_SECRET_KEY"
-ADMIN_EMAIL="josiahiscoding@gmail.com" # Or your primary admin email
-```
-
-**Commands:**
+### Backend
 ```bash
 cd server
-npm install # or yarn install / pnpm install
-npm run dev  # For development with nodemon
-# npm start  # For production
+npm install
+npm run dev # Port 3001
 ```
 
-### 2. Frontend (`frontend/`)
-
-*(No direct modifications were made to this frontend during this session, but general Next.js setup applies.)*
-
-**Commands (inferred):**
+### Frontend
 ```bash
 cd frontend
-npm install # or yarn install / pnpm install
-npm run dev
+npm install --force / --legacy-peer-deps
+npm run dev # Port 3000
 ```
 
-### 3. Admin Dashboard (`Admin/`)
-
-**Dependencies:**
-*   `@supabase/supabase-js`
-*   Next.js, React, Tailwind CSS, Shadcn UI components (as listed in `package.json`).
-
-**Environment Variables (`Admin/.env.local`):**
-Create a `.env.local` file in the `Admin/` directory with the following:
-```
-NEXT_PUBLIC_SUPABASE_URL="YOUR_SUPABASE_PROJECT_URL"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY"
-```
-
-**Commands:**
+### Admin
 ```bash
 cd Admin
-npm install # or yarn install / pnpm install
-npm run dev
+npm install
+npm run dev # Port 3002
 ```
-*(Note: If running both `frontend` and `Admin` simultaneously, Next.js will typically assign the Admin app to a different port, e.g., `http://localhost:3002` if `frontend` is on `3000` and `server` is on `3001`.)*
-
-## Database Configuration (Supabase SQL Editor)
-
-The following SQL scripts were provided and should be run in your Supabase SQL Editor.
-
-### 1. `notifications` Table
-Creates a table to store admin notifications and sets up Row Level Security (RLS).
-*(See `create_notifications_table.sql` for full script.)*
-
-```sql
-CREATE TABLE public.notifications (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
-    title TEXT NOT NULL,
-    message TEXT,
-    type TEXT DEFAULT 'info' NOT NULL,
-    read BOOLEAN DEFAULT false NOT NULL
-);
-ALTER TABLE public.notifications REPLICA IDENTITY FULL;
--- RLS Policies (as in create_notifications_table.sql)
-```
-
-### 2. `payments` Table
-Creates a table to store transaction records from Paystack webhooks and sets up RLS.
-*(See `create_payments_table.sql` for full script.)*
-
-```sql
-CREATE TABLE public.payments (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
-    user_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
-    amount BIGINT NOT NULL,
-    paystack_reference TEXT NOT NULL UNIQUE,
-    status TEXT NOT NULL,
-    tokens_purchased INTEGER NOT NULL
-);
--- RLS Policies (as in create_payments_table.sql)
-```
-
-### 3. `lucky_games` Table Alteration
-Adds `title` and `description` columns to the existing `lucky_games` table.
-*(See `alter_lucky_games_table.sql` for full script.)*
-
-```sql
-ALTER TABLE public.lucky_games
-ADD COLUMN title TEXT,
-ADD COLUMN description TEXT;
-```
-
-### 4. Notification Triggers
-Creates database functions and triggers to automatically generate notifications for new user registrations and new payments.
-*(See `create_payment_notification_trigger.sql` for full script.)*
-
-```sql
--- Function for new user notifications
-CREATE OR REPLACE FUNCTION public.handle_new_user_notification() RETURNS TRIGGER ...;
-CREATE TRIGGER on_new_user_created AFTER INSERT ON auth.users FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user_notification();
-
--- Function for new payment notifications
-CREATE OR REPLACE FUNCTION public.handle_new_payment_notification() RETURNS TRIGGER ...;
-CREATE TRIGGER on_new_payment_created AFTER INSERT ON public.payments FOR EACH ROW EXECUTE PROCEDURE public.handle_new_payment_notification();
-```
-
-## Admin Dashboard Features (Implemented during this session)
-
-*   **Secure OTP-based Login:** Admin dashboard access is restricted to pre-defined email addresses using Supabase OTP authentication.
-*   **API Proxying:** `Admin/next.config.mjs` is configured to proxy `/api` requests to the backend server.
-*   **User Management:**
-    *   Display of all users from Supabase `auth.users` and `public.profiles`.
-    *   Search functionality by name, email, or phone number.
-    *   Client-side pagination (20 users per page) for the user list.
-    *   "Give Tokens" feature with a searchable user selection dropdown and backend integration.
-*   **Game Management:**
-    *   `lucky_games` table now includes `title` and `description`.
-    *   "Create Game" page (`Admin/app/create-game/page.tsx`) allows creating games with a title and description, and prevents creating a new game if one is already active.
-    *   "Game Details" page (`Admin/app/game-details/page.tsx`) displays details for the active or last closed game, fetches associated entries, and allows force-revealing a winner with a confirmation modal.
-    *   "Game History" page (`Admin/app/game-history/page.tsx`) displays all `revealed` games and allows viewing entries for each.
-*   **Notifications:**
-    *   Real-time admin notifications for new user registrations and successful payments.
-    *   Notifications dropdown displays fetched notifications and allows marking them as read.
-*   **Payment Tracking:**
-    *   `payments` table stores records of all Paystack transactions.
-    *   `Payments` page (`Admin/app/payments/page.tsx`) displays a searchable and paginated list of all payments, including user details and Paystack references.
-*   **Dashboard Statistics:** Main dashboard page (`Admin/app/page.tsx`) displays real-time `Total Users`, `Total Revenue`, and `Active Games` statistics fetched from the backend.
-*   **Sidebar Logout:** A prominent logout button has been added to the bottom of the admin sidebar.
-
-## Development Conventions
-
-*   **TypeScript:** Used throughout the Next.js and backend applications for type safety.
-*   **Next.js App Router:** Frontend applications leverage the App Router paradigm.
-*   **Tailwind CSS & Shadcn UI:** For consistent and efficient styling across the frontend applications.
-*   **API Endpoints:** Backend API endpoints are organized by feature (`luckyGridRoutes`, `AdminRoutes`, `sidegameRoutes`).
-*   **Supabase Client:** Separate Supabase clients are initialized for server-side (service key) and client-side (anon key) operations.

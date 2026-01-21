@@ -1,0 +1,90 @@
+# Lucky Draw Vulnerability Report - December 28, 2025
+
+This report lists potential security vulnerabilities and code quality issues identified across the Lucky Draw web application (Server, Frontend, and Admin projects).
+
+---
+
+## 1. Server (/server)
+
+### Hardcoded Admin Emails (Authorization)
+- **File:** `server/utils/adminAuth.js`
+- **Issue:** The list of admin emails (`ADMIN_EMAILS`) is hardcoded in the source code.
+- **Risk:** Increases attacker knowledge of privileged accounts if code is leaked. Requires code deployment to modify admins.
+- **Recommendation:** Move to environment variables (e.g., `ADMIN_EMAILS=...`) or a database table.
+
+### Predictable Random Number Generation (Insecure)
+- **File:** `server/routes/luckyGridRoutes.js`
+- **Issue:** Uses `Math.random()` for winning number generation.
+- **Risk:** `Math.random()` is not cryptographically secure and can be predictable.
+- **Recommendation:** Use `crypto.randomInt()`.
+
+### Missing Rate Limiting
+- **File:** `server/server.js`
+- **Issue:** No rate limiting observed on sensitive endpoints.
+- **Risk:** Vulnerable to brute-force attacks, OTP flooding (spamming), and Denial of Service (DoS).
+- **Recommendation:** Implement `express-rate-limit`.
+
+### Potential Race Conditions (Lucky Grid Pick)
+- **File:** `server/routes/luckyGridRoutes.js`
+- **Issue:** Application-level check for existing numbers before insertion.
+- **Risk:** Multiple users could claim the same number simultaneously.
+- **Recommendation:** Enforce unique constraints at the database level and handle unique violation errors.
+
+### Non-Atomic Token Deduction (Critical Logic Flaw)
+- **File:** `server/routes/luckyGridRoutes.js` (Route `/pick`)
+- **Issue:** Inserts picks first, then updates token balance.
+- **Risk:** If token update fails, picks remain, allowing "free" games.
+- **Recommendation:** Use Supabase RPC or PostgreSQL transactions to ensure atomicity.
+
+---
+
+## 2. Admin Dashboard (/Admin)
+
+### Client-Side Auth Token Exposure
+- **File:** `Admin/app/login/page.tsx`
+- **Issue:** Session token stored in `localStorage`.
+- **Risk:** Accessible via XSS attacks.
+- **Recommendation:** Use `httpOnly` cookies.
+
+### Hardcoded Public Keys
+- **File:** `Admin/lib/supabaseClient.ts`
+- **Issue:** Reliance on `NEXT_PUBLIC` keys for client-side operations.
+- **Risk:** Standard for Supabase, but requires strict Row Level Security (RLS) on the database to prevent direct unauthorized access.
+
+### TypeScript Errors Ignored
+- **File:** `Admin/next.config.mjs`
+- **Issue:** `ignoreBuildErrors: true` is enabled.
+- **Risk:** Hides potential type errors that could lead to runtime instability.
+
+---
+
+## 3. Frontend (/frontend)
+
+### Weak Input Validation
+- **File:** `components/login-form.tsx`
+- **Issue:** Basic string check for email (`email.includes("@")`).
+- **Risk:** Malformed data reaches the backend.
+- **Recommendation:** Use `zod` for robust schema validation.
+
+### Information Leakage in Console Logs
+- **File:** `app/home/page.tsx`
+- **Issue:** Logs raw API responses including potentially sensitive user data.
+- **Risk:** Exposes data to anyone with access to the browser console.
+
+---
+
+## 4. General / Infrastructure
+
+### Email Credentials
+- **Issue:** Ensure `EMAIL_USER` and `EMAIL_PASS` are managed securely via environment variables and rotated regularly.
+
+### Beta Dependencies
+- **Issue:** `express` ^5.1.0 is used. While functional, it is a newer version that should be monitored for stability in production.
+
+---
+
+## Summary of Critical Actions
+1. **Server:** Fix the Token Deduction Logic in `/pick` to be atomic (RPC/Transaction).
+2. **Server:** Replace `Math.random()` with `crypto.randomInt()`.
+3. **Admin:** Improve token storage security (move to cookies).
+4. **General:** Implement Rate Limiting and strict RLS policies.

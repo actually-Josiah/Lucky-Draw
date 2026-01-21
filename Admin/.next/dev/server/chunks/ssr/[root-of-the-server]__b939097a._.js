@@ -53,6 +53,9 @@ function AuthProvider({ children }) {
         }
         setIsLoading(false);
     }, []);
+    const login = ()=>{
+        setIsAuthenticated(true);
+    };
     const logout = ()=>{
         localStorage.removeItem('sb_admin_token');
         setIsAuthenticated(false);
@@ -60,6 +63,7 @@ function AuthProvider({ children }) {
     };
     const value = {
         isAuthenticated,
+        login,
         logout,
         isLoading
     };
@@ -68,7 +72,7 @@ function AuthProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/context/AuthContext.tsx",
-        lineNumber: 37,
+        lineNumber: 42,
         columnNumber: 10
     }, this);
 }

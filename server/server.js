@@ -19,10 +19,6 @@ const getSupabaseClient = () => {
 
 const { isAdmin } = require('./utils/adminAuth');
 
-// --- Prize Config ---
-const { PRIZES, CATEGORY_CONFIG } = require('./config/prizes');
-
-
 // Helper to determine the outcome based on weighted probability
 function runWeightedDraw(config) {
   const totalWeight = config.reduce((sum, item) => sum + item.probability, 0);
@@ -36,7 +32,7 @@ function runWeightedDraw(config) {
     }
   }
 
-  return config[config.length - 1];
+  return config.find(item => item.name === 'No Prize') || config[config.length - 1];
 }
 
 
@@ -364,14 +360,17 @@ app.post('/api/paystack-webhook', async (req, res) => {
     res.status(200).end();
 });
 
-const sidegameRoutes = require('./routes/sidegameRoutes');
-app.use('/api', sidegameRoutes(authenticate, CATEGORY_CONFIG, PRIZES, runWeightedDraw));
+// const sidegameRoutes = require('./routes/sidegameRoutes');
+// app.use('/api', sidegameRoutes(authenticate, runWeightedDraw));
 
 const createLuckyGridRoutes = require('./routes/luckyGridRoutes');
 app.use('/api/lucky-grid', createLuckyGridRoutes(authenticate));
 
 const createAdminRoutes = require('./routes/AdminRoutes');
 app.use('/api/admin', authenticate, createAdminRoutes(authenticate));
+
+const createWheelGameRoutes = require('./routes/WheelGameRoutes');
+app.use('/api/wheel-game', createWheelGameRoutes(authenticate, runWeightedDraw));
 
 
 

@@ -60,16 +60,16 @@ export default function Game() {
           {/* ✅ FIX: Aspect ratio wrapper to enforce square height */}
           <div className="relative w-full aspect-square">
             <Image
-              // onClick={gotowheel}
-              src="/win.jpeg"
+              onClick={gotowheel}
+              src="/play2.png"
               alt="Spin & Win Game"
               fill // Use fill to size the image based on the parent container
               className="rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer object-cover" 
             />
           </div>
-          {/* <Button className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer" onClick={gotowheel}>
-            Spin & Win
-          </Button> */}
+          <Button className="w-full bg-red-500 hover:bg-red-400 text-white py-6 text-base font-semibold disabled:opacity-50 cursor-pointer" onClick={gotowheel}>
+            Twir Wheel No
+          </Button>
         </div>
 
       </div>

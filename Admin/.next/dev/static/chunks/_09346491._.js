@@ -144,6 +144,11 @@ const navItems = [
         href: "/give-tokens",
         label: "Give Tokens",
         icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gift$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Gift$3e$__["Gift"]
+    },
+    {
+        href: "/unclaimed-prizes",
+        label: "Unclaimed Prizes",
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gift$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Gift$3e$__["Gift"]
     }
 ];
 function AdminSidebar({ collapsed, onToggle }) {
@@ -162,7 +167,7 @@ function AdminSidebar({ collapsed, onToggle }) {
                             className: "h-8 w-8 text-sidebar-primary flex-shrink-0"
                         }, void 0, false, {
                             fileName: "[project]/components/admin-sidebar.tsx",
-                            lineNumber: 49,
+                            lineNumber: 50,
                             columnNumber: 11
                         }, this),
                         !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -170,18 +175,18 @@ function AdminSidebar({ collapsed, onToggle }) {
                             children: "Admin"
                         }, void 0, false, {
                             fileName: "[project]/components/admin-sidebar.tsx",
-                            lineNumber: 50,
+                            lineNumber: 51,
                             columnNumber: 26
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/admin-sidebar.tsx",
-                    lineNumber: 48,
+                    lineNumber: 49,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/admin-sidebar.tsx",
-                lineNumber: 47,
+                lineNumber: 48,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -197,26 +202,26 @@ function AdminSidebar({ collapsed, onToggle }) {
                                 className: "h-5 w-5 flex-shrink-0"
                             }, void 0, false, {
                                 fileName: "[project]/components/admin-sidebar.tsx",
-                                lineNumber: 70,
+                                lineNumber: 71,
                                 columnNumber: 15
                             }, this),
                             !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 children: item.label
                             }, void 0, false, {
                                 fileName: "[project]/components/admin-sidebar.tsx",
-                                lineNumber: 71,
+                                lineNumber: 72,
                                 columnNumber: 30
                             }, this)
                         ]
                     }, item.href, true, {
                         fileName: "[project]/components/admin-sidebar.tsx",
-                        lineNumber: 58,
+                        lineNumber: 59,
                         columnNumber: 13
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/components/admin-sidebar.tsx",
-                lineNumber: 54,
+                lineNumber: 55,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -230,25 +235,25 @@ function AdminSidebar({ collapsed, onToggle }) {
                             className: "h-5 w-5 flex-shrink-0"
                         }, void 0, false, {
                             fileName: "[project]/components/admin-sidebar.tsx",
-                            lineNumber: 87,
+                            lineNumber: 88,
                             columnNumber: 11
                         }, this),
                         !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                             children: "Logout"
                         }, void 0, false, {
                             fileName: "[project]/components/admin-sidebar.tsx",
-                            lineNumber: 88,
+                            lineNumber: 89,
                             columnNumber: 26
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/admin-sidebar.tsx",
-                    lineNumber: 78,
+                    lineNumber: 79,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/admin-sidebar.tsx",
-                lineNumber: 77,
+                lineNumber: 78,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -258,24 +263,24 @@ function AdminSidebar({ collapsed, onToggle }) {
                     className: "h-4 w-4"
                 }, void 0, false, {
                     fileName: "[project]/components/admin-sidebar.tsx",
-                    lineNumber: 96,
+                    lineNumber: 97,
                     columnNumber: 22
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__["ChevronLeft"], {
                     className: "h-4 w-4"
                 }, void 0, false, {
                     fileName: "[project]/components/admin-sidebar.tsx",
-                    lineNumber: 96,
+                    lineNumber: 97,
                     columnNumber: 61
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/admin-sidebar.tsx",
-                lineNumber: 92,
+                lineNumber: 93,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/admin-sidebar.tsx",
-        lineNumber: 41,
+        lineNumber: 42,
         columnNumber: 5
     }, this);
 }
