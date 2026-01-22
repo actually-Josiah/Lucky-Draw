@@ -374,6 +374,7 @@ app.use('/api/wheel-game', createWheelGameRoutes(authenticate, runWeightedDraw))
 
 
 
+// The '0.0.0.0' is CRITICAL for Coolify/Docker
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server listening on port ${port}`);
 });
