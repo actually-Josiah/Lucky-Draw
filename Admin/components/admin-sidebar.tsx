@@ -17,6 +17,7 @@ import {
   Palette,
   Award, // New Icon
   CircleDotDashed, // New Icon for Wheel Game
+  Download,
 } from "lucide-react"
 import { useAuth } from "@/context/AuthContext"
 import { cn } from "@/lib/utils"
@@ -40,6 +41,7 @@ const wheelGameNavItems = [
 const otherNavItems = [
   { href: "/payments", label: "Payments", icon: CreditCard },
   { href: "/give-tokens", label: "Give Tokens", icon: Gift },
+  { href: "/export-users", label: "Export Users", icon: Download },
 ]
 
 
@@ -89,7 +91,7 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
       <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-4">
         <div className={cn("flex items-center gap-2", collapsed && "justify-center w-full")}>
           <User className="h-8 w-8 text-sidebar-primary flex-shrink-0" />
-          {!collapsed && <span className="text-xl font-bold text-sidebar-foreground">Admin</span>}
+          {!collapsed && <span className="text-base font-bold text-sidebar-foreground whitespace-nowrap">FOODSTUFF HOME</span>}
         </div>
       </div>
 

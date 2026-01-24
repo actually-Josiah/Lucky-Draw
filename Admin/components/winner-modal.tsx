@@ -42,41 +42,45 @@ export function WinnerModal({ game, entries, open, onClose, loadingEntries, entr
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl border-border bg-card text-card-foreground">
-        <DialogHeader>
+      <DialogContent className="max-w-2xl max-h-[85vh] flex flex-col border-border bg-card text-card-foreground">
+        <DialogHeader className="flex-shrink-0">
           <DialogTitle className="text-xl">{game.title || "Untitled Game"} - Results</DialogTitle>
         </DialogHeader>
-        <div className="space-y-6">
-          <div className="flex flex-col items-center justify-center py-6">
-            <Trophy className="mb-4 h-12 w-12 text-accent" />
-            <p className="mb-2 text-sm text-muted-foreground">Winning Number</p>
-            <p className="gold-shimmer text-6xl font-bold">{game.winning_number || 'N/A'}</p>
+        <div className="flex flex-col space-y-4 overflow-hidden flex-1">
+          {/* Fixed header section - winning number and winners */}
+          <div className="flex-shrink-0">
+            <div className="flex flex-col items-center justify-center py-4">
+              <Trophy className="mb-2 h-10 w-10 text-accent" />
+              <p className="mb-1 text-sm text-muted-foreground">Winning Number</p>
+              <p className="gold-shimmer text-6xl font-bold">{game.winning_number || 'N/A'}</p>
+            </div>
+
+            {winners.length > 0 ? (
+              <Card className="border-accent/30 bg-accent/10">
+                <CardHeader className="py-2">
+                  <CardTitle className="text-center text-accent text-sm">🎉 Winner 🎉</CardTitle>
+                </CardHeader>
+                <CardContent className="py-2">
+                  <div className="flex flex-wrap justify-center gap-2 max-h-20 overflow-y-auto">
+                    {winners.map((winner, idx) => (
+                      <span key={idx} className="rounded-full bg-accent/10 px-4 py-2 text-lg font-medium text-accent">
+                        {winner}
+                      </span>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <p className="text-center text-muted-foreground text-sm">No winners for this game.</p>
+            )}
           </div>
 
-          {winners.length > 0 ? (
-            <Card className="border-accent/30 bg-accent/10">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-center text-accent">🎉 Winners 🎉</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {winners.map((winner, idx) => (
-                    <span key={idx} className="rounded-full bg-accent/20 px-4 py-2 font-semibold text-accent">
-                      {winner}
-                    </span>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            <p className="text-center text-muted-foreground">No winners for this game.</p>
-          )}
-
-          <Card className="border-border bg-secondary/30">
-            <CardHeader>
+          {/* Scrollable entries section */}
+          <Card className="border-border bg-secondary/30 flex-1 flex flex-col min-h-0 overflow-hidden">
+            <CardHeader className="py-2 flex-shrink-0">
               <CardTitle className="text-base">All Entries</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-1 overflow-y-auto">
               {loadingEntries ? (
                 <div className="flex justify-center items-center p-4">
                   <Loader2 className="h-6 w-6 animate-spin text-primary" />
