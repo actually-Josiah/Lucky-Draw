@@ -14,8 +14,12 @@ server/node_modules/
 frontend/dist/
 frontend/build/
 frontend/.next/
+Admin/dist/
+Admin/build/
+Admin/.next/
 server/dist/
 
 # OS / editor junk
 .DS_Store
 Thumbs.dbgit 
+
