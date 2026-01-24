@@ -10,6 +10,7 @@ server/node_modules/
 *.env.local
 .next/
 
+
 # Build files
 frontend/dist/
 frontend/build/
@@ -18,6 +19,7 @@ Admin/dist/
 Admin/build/
 Admin/.next/
 server/dist/
+Admin/next.config.mjs
 
 # OS / editor junk
 .DS_Store
