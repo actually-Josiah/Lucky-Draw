@@ -161,16 +161,73 @@ module.exports = (authenticate, runWeightedDraw) => {
                 const winnerPhone = profile?.phone_number || 'Not provided';
 
                 const winnerHtml = `
-                    <h3>🥳 Congratulations, ${winnerName}! You Won!</h3>
-                    <p>We're thrilled to announce you won a <strong>${drawResult.name}</strong> from your spin on the Wheel of Fortune!</p>
-                    <p>Your unique prize claim code is: <strong>${finalSpinCode}</strong>. Please provide this code when contacted by our team.</p>
-                    <p>Your registered details are:</p>
-                    <ul>
-                        <li><strong>Name:</strong> ${winnerName}</li>
-                        <li><strong>Email:</strong> ${winnerEmail}</li>
-                        <li><strong>Phone:</strong> ${winnerPhone}</li>
-                    </ul>
-                    <p>Enjoy your day, and thank you for being a part of the Lucky Draw!</p>
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    </head>
+                    <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5;">
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
+                            <tr>
+                                <td align="center">
+                                    <table width="600" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+                                        <!-- Header -->
+                                        <tr>
+                                            <td style="padding: 40px 40px 20px; text-align: center;">
+                                                <div style="font-size: 64px; margin-bottom: 10px;">🎰</div>
+                                                <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700;">Wo Suro A, Wo Nni</h1>
+                                                <p style="color: rgba(255,255,255,0.85); margin: 5px 0 0; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Winner Notification</p>
+                                            </td>
+                                        </tr>
+                                        <!-- Main Content -->
+                                        <tr>
+                                            <td style="padding: 0 20px 40px;">
+                                                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden;">
+                                                    <tr>
+                                                        <td style="padding: 40px; text-align: center;">
+                                                            <div style="font-size: 48px; margin-bottom: 15px;">🥳🎉</div>
+                                                            <h2 style="color: #1f2937; margin: 0 0 10px; font-size: 24px;">Congratulations, ${winnerName}!</h2>
+                                                            <p style="color: #6b7280; margin: 0 0 25px; font-size: 16px; line-height: 1.6;">You've just won an amazing prize from the Wheel of Fortune!</p>
+                                                            
+                                                            <!-- Prize Box -->
+                                                            <div style="background: linear-gradient(135deg, #fef9e7 0%, #f7dc6f 100%); border-radius: 12px; padding: 25px; margin-bottom: 25px; border: 2px solid #d4af37;">
+                                                                <p style="color: #8b6914; margin: 0 0 5px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Your Prize</p>
+                                                                <h3 style="color: #7d5a00; margin: 0; font-size: 22px; font-weight: 700;">🏆 ${drawResult.name}</h3>
+                                                            </div>
+                                                            
+                                                            <!-- Claim Code -->
+                                                            <div style="background: linear-gradient(135deg, #fef9e7 0%, #fce588 100%); border-radius: 12px; padding: 20px; margin-bottom: 25px; border: 2px solid #d4af37;">
+                                                                <p style="color: #8b6914; margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Your Claim Code</p>
+                                                                <p style="color: #7d5a00; margin: 0; font-size: 28px; font-weight: 700; font-family: monospace; letter-spacing: 3px;">${finalSpinCode}</p>
+                                                            </div>
+                                                            
+                                                            <p style="color: #6b7280; font-size: 14px; margin: 0 0 25px; line-height: 1.6;">Please keep this code safe. Our team will contact you shortly to arrange prize collection.</p>
+                                                            
+                                                            <!-- User Details -->
+                                                            <div style="background-color: #fafafa; border-radius: 8px; padding: 20px; text-align: left; border-left: 4px solid #dc2626;">
+                                                                <p style="color: #374151; margin: 0 0 12px; font-size: 13px; font-weight: 600;">📋 Your Registered Details:</p>
+                                                                <p style="color: #6b7280; margin: 0 0 6px; font-size: 14px;"><strong>Name:</strong> ${winnerName}</p>
+                                                                <p style="color: #6b7280; margin: 0 0 6px; font-size: 14px;"><strong>Email:</strong> ${winnerEmail}</p>
+                                                                <p style="color: #6b7280; margin: 0; font-size: 14px;"><strong>Phone:</strong> ${winnerPhone}</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <!-- Footer -->
+                                        <tr>
+                                            <td style="padding: 0 40px 30px; text-align: center;">
+                                                <p style="color: rgba(255,255,255,0.85); margin: 0; font-size: 13px;">Thank you for playing Wo Suro A Wondi! 🎊</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </body>
+                    </html>
                 `;
 
                 await sendEmail(

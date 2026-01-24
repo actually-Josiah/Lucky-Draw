@@ -253,11 +253,63 @@ if (profile.available_game_sessions < tokenCost) {
   try {
     const numbersStr = newPicks.map(p => p.number).join(', ');
     const emailHtml = `
-      <h3>Wo Suro A Wondi Draw Confirmation</h3>
-      <p>Hi ${user.email},</p>
-      <p>You have successfully picked the following numbers for the current game:</p>
-      <p><strong>${numbersStr}</strong></p>
-      <p>Good luck!</p>
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
+              <tr>
+                  <td align="center">
+                      <table width="600" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+                          <!-- Header -->
+                          <tr>
+                              <td style="padding: 40px 40px 20px; text-align: center;">
+                                  <div style="font-size: 48px; margin-bottom: 10px;">🎯</div>
+                                  <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700;">WO SURO A, WO NNI</h1>
+                                  <p style="color: rgba(255,255,255,0.85); margin: 5px 0 0; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Pick Confirmation</p>
+                              </td>
+                          </tr>
+                          <!-- Main Content -->
+                          <tr>
+                              <td style="padding: 0 20px 40px;">
+                                  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden;">
+                                      <tr>
+                                          <td style="padding: 40px; text-align: center;">
+                                              <div style="font-size: 36px; margin-bottom: 15px;">✅</div>
+                                              <h2 style="color: #1f2937; margin: 0 0 10px; font-size: 22px;">Numbers Confirmed!</h2>
+                                              <p style="color: #6b7280; margin: 0 0 25px; font-size: 15px; line-height: 1.6;">Your picks have been successfully recorded for the current game.</p>
+                                              
+                                              <!-- Numbers Box -->
+                                              <div style="background: linear-gradient(135deg, #fef9e7 0%, #f7dc6f 100%); border-radius: 12px; padding: 25px; margin-bottom: 25px; border: 2px solid #d4af37;">
+                                                  <p style="color: #8b6914; margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Your Lucky Numbers</p>
+                                                  <h3 style="color: #7d5a00; margin: 0; font-size: 26px; font-weight: 700; font-family: monospace; letter-spacing: 2px;">${numbersStr}</h3>
+                                              </div>
+                                              
+                                              <div style="background: linear-gradient(135deg, #fef9e7 0%, #fce588 100%); border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 1px solid #d4af37;">
+                                                  <p style="color: #7d5a00; margin: 0; font-size: 14px;">🍀 <strong>Good luck!</strong> May fortune smile upon you!</p>
+                                              </div>
+                                              
+                                              <p style="color: #9ca3af; font-size: 13px; margin: 0; line-height: 1.5;">Keep this email as your confirmation. Results will be announced soon!</p>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </td>
+                          </tr>
+                          <!-- Footer -->
+                          <tr>
+                              <td style="padding: 0 40px 30px; text-align: center;">
+                                  <p style="color: rgba(255,255,255,0.85); margin: 0; font-size: 13px;">Thank you for playing Wo Suro A Wondi! 🎲</p>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+          </table>
+      </body>
+      </html>
     `;
     await sendEmail(user.email, 'Your Lucky Draw Picks', emailHtml);
   } catch (emailErr) {
@@ -402,20 +454,98 @@ if (!profileDetailsError) {
 // --- 8 Return reveal result + send admin email ---
 try {
 const adminHtml = `
-  <h3>🎉 Lucky Draw Game Ended</h3>
-  <p><strong>Game ID:</strong> ${updatedGame.id}</p>
-  <p><strong>Winning Number:</strong> ${winningNumber}</p>
-
-  <h4>🏆 Winner Details:</h4>
-  ${
-    winnerProfile
-      ? `
-        <p><strong>Name:</strong> ${winnerProfile.name || 'N/A'}</p>
-        <p><strong>Phone:</strong> ${winnerProfile.phone_number || 'N/A'}</p>
-        <p><strong>Email:</strong> ${winnerAuthUser?.email || 'N/A'}</p>
-      `
-      : '<p>No winner for this round.</p>'
-  }
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5;">
+      <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
+          <tr>
+              <td align="center">
+                  <table width="600" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.25);">
+                      <!-- Header -->
+                      <tr>
+                          <td style="padding: 30px 40px 15px; text-align: center;">
+                              <div style="font-size: 40px; margin-bottom: 8px;">📊</div>
+                              <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 700;">ADMIN NOTIFICATION</h1>
+                              <p style="color: rgba(255,255,255,0.75); margin: 5px 0 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px;">Lucky Grid Results</p>
+                          </td>
+                      </tr>
+                      <!-- Main Content -->
+                      <tr>
+                          <td style="padding: 0 20px 30px;">
+                              <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden;">
+                                  <tr>
+                                      <td style="padding: 30px;">
+                                          <!-- Game Info -->
+                                          <div style="background-color: #fafafa; border-radius: 8px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #dc2626;">
+                                              <table width="100%" cellpadding="0" cellspacing="0">
+                                                  <tr>
+                                                      <td style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Game ID</td>
+                                                      <td style="color: #1f2937; font-size: 14px; font-weight: 600; text-align: right; font-family: monospace;">${updatedGame.id}</td>
+                                                  </tr>
+                                              </table>
+                                          </div>
+                                          
+                                          <!-- Winning Number -->
+                                          <div style="text-align: center; margin-bottom: 25px;">
+                                              <p style="color: #6b7280; margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Winning Number</p>
+                                              <div style="background: linear-gradient(135deg, #fef9e7 0%, #f7dc6f 100%); display: inline-block; padding: 20px 40px; border-radius: 12px; border: 3px solid #d4af37;">
+                                                  <span style="color: #7d5a00; font-size: 36px; font-weight: 700;">${winningNumber}</span>
+                                              </div>
+                                          </div>
+                                          
+                                          <!-- Winner Details -->
+                                          <div style="border-top: 1px solid #e5e7eb; padding-top: 20px;">
+                                              <h3 style="color: #1f2937; margin: 0 0 15px; font-size: 16px;">🏆 Winner Details</h3>
+                                              ${
+                                                winnerProfile
+                                                  ? `
+                                                    <div style="background: linear-gradient(135deg, #fef9e7 0%, #fce588 100%); border-radius: 8px; padding: 20px; border-left: 4px solid #d4af37;">
+                                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="padding: 6px 0;">
+                                                                    <span style="color: #6b7280; font-size: 13px;">Name:</span>
+                                                                    <span style="color: #1f2937; font-size: 14px; font-weight: 600; float: right;">${winnerProfile.name || 'N/A'}</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 6px 0;">
+                                                                    <span style="color: #6b7280; font-size: 13px;">Phone:</span>
+                                                                    <span style="color: #1f2937; font-size: 14px; font-weight: 600; float: right;">${winnerProfile.phone_number || 'N/A'}</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 6px 0;">
+                                                                    <span style="color: #6b7280; font-size: 13px;">Email:</span>
+                                                                    <span style="color: #1f2937; font-size: 14px; font-weight: 600; float: right;">${winnerAuthUser?.email || 'N/A'}</span>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                  `
+                                                  : '<div style="background-color: #fef2f2; border-radius: 8px; padding: 20px; text-align: center; border-left: 4px solid #dc2626;"><p style="color: #991b1b; margin: 0; font-size: 14px;">⚠️ No winner for this round</p></div>'
+                                              }
+                                          </div>
+                                      </td>
+                                  </tr>
+                              </table>
+                          </td>
+                      </tr>
+                      <!-- Footer -->
+                      <tr>
+                          <td style="padding: 0 40px 25px; text-align: center;">
+                              <p style="color: rgba(255,255,255,0.7); margin: 0; font-size: 12px;">Wo Suro A Wondi Admin Panel</p>
+                          </td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+      </table>
+  </body>
+  </html>
 `;
 
 
@@ -439,10 +569,66 @@ if (winnerAuthUser?.email && winnerPick?.user_id) {
     try {
         const winnerName = winnerProfile?.name || "Winner";
         const winnerHtml = `
-            <h3>🥳 Congratulations, ${winnerName}! You Won!</h3>
-            <p>We're thrilled to announce you won this week's <strong> Wo Sura A Wondi</strong> draw with your lucky number: <strong>${winningNumber}</strong>!</p>
-            <p>Our team will get in touch with you shortly on your registered phone number or email to discuss how to claim your prize.</p>
-            <p>Enjoy your day, and thank you for being a part of the Lucky Draw!</p>
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
+                    <tr>
+                        <td align="center">
+                            <table width="600" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.25);">
+                                <!-- Header -->
+                                <tr>
+                                    <td style="padding: 40px 40px 20px; text-align: center;">
+                                        <div style="font-size: 64px; margin-bottom: 10px;">🏆</div>
+                                        <h1 style="color: #ffffff; margin: 0; font-size: 26px; font-weight: 700;">WO SURO A, WO NNI</h1>
+                                        <p style="color: rgba(255,255,255,0.9); margin: 5px 0 0; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Lucky Grid Winner!</p>
+                                    </td>
+                                </tr>
+                                <!-- Main Content -->
+                                <tr>
+                                    <td style="padding: 0 20px 40px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden;">
+                                            <tr>
+                                                <td style="padding: 40px; text-align: center;">
+                                                    <div style="font-size: 48px; margin-bottom: 15px;">🥳🎉🎊</div>
+                                                    <h2 style="color: #1f2937; margin: 0 0 8px; font-size: 26px;">Congratulations, ${winnerName}!</h2>
+                                                    <p style="color: #6b7280; margin: 0 0 30px; font-size: 16px; line-height: 1.6;">You are the lucky winner of this week's draw!</p>
+                                                    
+                                                    <!-- Winning Number -->
+                                                    <div style="background: linear-gradient(135deg, #fef9e7 0%, #f7dc6f 100%); border-radius: 16px; padding: 30px; margin-bottom: 30px; border: 3px solid #d4af37;">
+                                                        <p style="color: #8b6914; margin: 0 0 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Your Winning Number</p>
+                                                        <h3 style="color: #7d5a00; margin: 0; font-size: 48px; font-weight: 700;">${winningNumber}</h3>
+                                                    </div>
+                                                    
+                                                    <div style="background: linear-gradient(135deg, #fef9e7 0%, #fce588 100%); border-radius: 12px; padding: 25px; margin-bottom: 25px; border-left: 4px solid #d4af37;">
+                                                        <p style="color: #7d5a00; margin: 0; font-size: 15px; line-height: 1.7;">
+                                                            <strong>🎁 What's Next?</strong><br>
+                                                            Our team will contact you shortly via your registered phone number or email to arrange prize collection.
+                                                        </p>
+                                                    </div>
+                                                    
+                                                    <p style="color: #9ca3af; font-size: 14px; margin: 0; line-height: 1.5;">Thank you for being a part of Wo Suro A Wondi! Keep playing for more chances to win!</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <!-- Footer -->
+                                <tr>
+                                    <td style="padding: 0 40px 30px; text-align: center;">
+                                        <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 14px;">🌟 Play. Win. Celebrate! 🌟</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
         `;
         
         await sendEmail(
