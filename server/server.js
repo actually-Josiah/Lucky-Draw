@@ -39,6 +39,7 @@ function runWeightedDraw(config) {
 // --- Middleware Setup ---
 const allowedOrigins = [
   "http://localhost:3000",
+  "http://localhost:3001",
   "http://localhost:3002",
   "http://10.21.136.216:3000",
   "https://homefoodstuffluckydraw.netlify.app",
