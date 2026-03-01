@@ -9,10 +9,12 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Wo Sura A Wo Nni | Foodstuff Home',
-    icons: {
-    icon: '/logo.png',                 // Chrome / Opera / Firefox
-    apple: '/logo.png',                // Safari iOS + macOS
+  title: 'Wo Sura A Wo Nni | Win Big with Foodstuff Home Lucky Draw',
+  description: 'Try your luck with Ghana\'s favorite pick and win game! Play the Lucky Grid, spin the Wheel of Fortune, and win amazing prizes including foodstuff, cash, and sponsor rewards. Licensed and secure lottery-style gaming.',
+  keywords: ['lottery', 'pick and win', 'lucky draw', 'NLA Ghana', 'bet', 'spin the wheel', 'foodstuff home', 'Ghana games'],
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
   },
 }
 
