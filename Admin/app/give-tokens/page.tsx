@@ -41,6 +41,7 @@ export default function GiveTokensPage() {
   const [errorUsers, setErrorUsers] = useState<string | null>(null)
 
   const [openUserSelect, setOpenUserSelect] = useState(false) // State for the searchable select popover
+  const [search, setSearch] = useState("") // State for the search input
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -189,14 +190,18 @@ export default function GiveTokensPage() {
                 </PopoverTrigger>
                 <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 border-border bg-popover">
                     <Command>
-                        <CommandInput placeholder="Search user by name, email or phone..." className="h-9" />
+                        <CommandInput 
+                            placeholder="Search user by name, email or phone..." 
+                            className="h-9" 
+                            onValueChange={setSearch}
+                        />
                         <CommandList>
                             <CommandEmpty>No user found.</CommandEmpty>
                             <CommandGroup>
                                 {users.filter(user => 
-                                    (user.name && user.name.toLowerCase().includes(CommandInput.value?.toLowerCase() || '')) ||
-                                    (user.email && user.email.toLowerCase().includes(CommandInput.value?.toLowerCase() || '')) ||
-                                    (user.phone_number && user.phone_number.toLowerCase().includes(CommandInput.value?.toLowerCase() || ''))
+                                    (user.name && user.name.toLowerCase().includes(search.toLowerCase())) ||
+                                    (user.email && user.email.toLowerCase().includes(search.toLowerCase())) ||
+                                    (user.phone_number && user.phone_number.toLowerCase().includes(search.toLowerCase()))
                                 ).map((user) => (
                                     <CommandItem
                                         key={user.id}
