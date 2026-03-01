@@ -9,10 +9,10 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Wo Sura A wondi | Foodstuff Home',
+  title: 'Wo Sura A Wo Nni | Foodstuff Home',
     icons: {
-    icon: '/logo.ico',                 // Chrome / Opera / Firefox
-    apple: '/apple-touch-icon.png',    // Safari iOS + macOS
+    icon: '/logo.png',                 // Chrome / Opera / Firefox
+    apple: '/logo.png',                // Safari iOS + macOS
   },
 }
 

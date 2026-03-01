@@ -98,21 +98,23 @@ export default function BuyTriesCard({
   }
 
   return (
-    <Card className="p-6 shadow-xl bg-white">
-      <div className="flex justify-between items-center mb-6 border-b pb-4">
-        <h2 className="text-2xl font-bold text-slate-900">Get Game Tries</h2>
-        <DollarSign className="h-6 w-6 text-red-500" />
+    <Card className="p-8 shadow-sm border border-slate-200 rounded-2xl bg-white w-full">
+      <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
+        <h2 className="text-xl font-bold text-slate-900">Get Game Tries</h2>
+        <div className="bg-red-50 p-2 rounded-full">
+          <DollarSign className="h-5 w-5 text-red-500" />
+        </div>
       </div>
 
       <div className="space-y-4">
         {purchasePackages.map((pkg) => (
           <div
             key={pkg.tokens}
-            className="flex justify-between items-center border p-4 rounded-lg bg-gray-50 hover:border-red-600 transition-colors"
+            className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-slate-100 p-4 rounded-xl bg-slate-50/50 hover:border-red-500/30 hover:bg-slate-50 transition-colors"
           >
             <div>
-              <p className="font-bold text-lg text-slate-900">{pkg.label}</p>
-              <p className="text-sm text-slate-600">GHS {pkg.amount.toLocaleString()}</p>
+              <p className="font-bold text-base text-slate-900">{pkg.label}</p>
+              <p className="text-sm font-medium text-slate-500">GHS {pkg.amount.toLocaleString()}</p>
             </div>
 
             {/* ✅ Wrapped button in a form to satisfy Paystack inline script */}
@@ -121,11 +123,12 @@ export default function BuyTriesCard({
                 e.preventDefault()
                 handlePurchase(pkg)
               }}
+              className="w-full sm:w-auto"
             >
               <Button
                 type="submit"
                 disabled={loadingPackage !== null}
-                className="bg-red-500 hover:bg-red-400 font-bold min-w-[120px] cursor-pointer"
+                className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-medium px-6 py-5 rounded-lg transition-colors"
               >
                 {loadingPackage === pkg.tokens ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -138,8 +141,8 @@ export default function BuyTriesCard({
         ))}
       </div>
 
-      <p className="text-xs text-center text-slate-500 mt-6">
-        Powered by Paystack. Your balance will update instantly after payment.
+      <p className="text-xs text-center text-slate-400 mt-6 font-medium">
+        Powered by <span className="text-slate-600">Paystack</span>. Balance updates instantly.
       </p>
     </Card>
   )

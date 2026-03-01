@@ -119,40 +119,40 @@ try {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-slate-50 font-sans selection:bg-red-500 selection:text-white pb-24">
       {/* Navbar uses the fetched user data */}
       <PlayNavbar 
           user={user} 
           onOpenUpdateProfile={() => setShowUpdateProfile(true)} 
       />
 
-      <main className="pt-20">
-        <div className="container mx-auto px-4">
+      <main className="pt-24 lg:pt-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <PlayHeader />
+          <PlayHeader userName={user.name || "Player"} />
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
-            <div className="lg:col-span-2 space-y-8">
+          <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8 mt-12 items-start">
+            
+            {/* Left Column (Main Content) - Order 1 on mobile, Order 1 on Desktop */}
+            <div className="w-full lg:col-span-2 space-y-8 order-1">
                 <Carousel />
             </div>
             
-            {/* 🛒 RENDER BuyTriesCard: Place it in the sidebar */}
-            <aside>
+            {/* 🛒 RENDER BuyTriesCard: Place it in the sidebar (Right Column) - Order 2 on mobile, Order 2 on Desktop */}
+            <aside className="w-full lg:sticky lg:top-24 order-2">
                 <BuyTriesCard 
-                    
                     userId={user.id} 
                     userEmail={user.email} 
-                    
-                    
                     onPurchaseSuccess={handlePurchaseSuccess} 
                 />
             </aside>
+
+            {/* Bottom Content - Order 3 on mobile, Order 3 on Desktop (Spans full width or just left col) */}
+            <div className="w-full lg:col-span-2 space-y-8 order-3">
+                <HowToPlay />
+                <Sponsors />
+            </div>
           </div>
-        </div>
-          
-        <div className="container mx-auto px-4">
-          <Sponsors />
-          <HowToPlay />
         </div>
       </main>
 

@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import { RealtimePostgresChangesPayload } from '@supabase/supabase-js';
-import { Award, Loader2 } from 'lucide-react';
+import { Award, Loader2, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Winner {
@@ -15,7 +15,7 @@ interface Winner {
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const SPIN_DURATION_MS = 15000; // Match to  wheel spin duration
+const SPIN_DURATION_MS = 15000; // Match to wheel spin duration
 
 export default function RecentWinners() {
   const [winners, setWinners] = useState<Winner[]>([]);
@@ -50,8 +50,8 @@ export default function RecentWinners() {
     const handleNewWin = (payload: RealtimePostgresChangesPayload<Winner>) => {
       // SPOILER FIX: Wait for the wheel to finish spinning before showing the result
       setTimeout(async () => {
-        
-        const spinId = payload.new.id;
+        const newRecord = payload.new as Winner;
+        const spinId = newRecord?.id;
         if (!spinId) return;
 
         console.log(`[Realtime] Processing spin ID: ${spinId}`);
@@ -69,14 +69,22 @@ export default function RecentWinners() {
           return;
         }
 
+        // Handle possible array return if Supabase types are wonky
+        const formattedData = {
+            id: data.id,
+            created_at: data.created_at,
+            user: Array.isArray(data.user) ? data.user[0] : data.user,
+            prize: Array.isArray(data.prize) ? data.prize[0] : data.prize
+        } as Winner;
+
         // Only add to the list if it is a valid prize (Not 'No Prize')
-        if (data && data.prize && data.prize.name !== 'No Prize') {
+        if (formattedData && formattedData.prize && formattedData.prize.name !== 'No Prize') {
           setWinners(currentWinners => {
             // Prevent duplicates
-            if (currentWinners.some(w => w.id === data.id)) return currentWinners;
+            if (currentWinners.some(w => w.id === formattedData.id)) return currentWinners;
             
             // Add new winner to the top and keep list size at 8
-            return [data as Winner, ...currentWinners].slice(0, 8);
+            return [formattedData, ...currentWinners].slice(0, 8);
           });
         }
       }, SPIN_DURATION_MS);
@@ -99,59 +107,72 @@ export default function RecentWinners() {
   }, [supabase]);
 
 return (
-    // 1. Changed border to exclude the bottom (border-b-0) and added a gradient mask to the whole container
-    <div className="w-full max-w-sm p-4 bg-black/30 backdrop-blur-md rounded-t-lg border-t border-x border-b-0 border-white/10 shadow-lg relative">
-      
-      <h3 className="text-xl font-bold text-white mb-4 text-center drop-shadow-md">
-        Recent Winners
-      </h3>
+    <div className="w-full bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden flex flex-col">
+      <div className="p-6 border-b border-white/10 bg-white/5">
+        <h3 className="text-lg font-black text-white flex items-center gap-2">
+          <Award className="w-5 h-5 text-red-500" />
+          Recent Winners
+        </h3>
+      </div>
 
-      {/* 2. Added a max-height and the 'mask-image' gradient to create the fade effect */}
-      <div 
-        className="space-y-3 max-h-[400px] overflow-hidden [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]"
-      >
+      <div className="p-2 flex flex-col gap-2 max-h-[460px] overflow-hidden relative">
         {loading ? (
-          <div className="flex justify-center items-center py-8">
-            <Loader2 className="w-8 h-8 text-white animate-spin" />
+          <div className="flex flex-col items-center justify-center py-12 gap-3">
+            <Loader2 className="w-8 h-8 text-red-500 animate-spin" />
+            <p className="text-white/40 text-xs font-medium uppercase tracking-widest">Checking the records...</p>
           </div>
         ) : (
-          <AnimatePresence mode='popLayout'>
-            {winners.map(winner => (
-              <motion.div
-                key={winner.id}
-                layout
-                initial={{ opacity: 0, y: -20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 20, scale: 0.9 }} // Items fade down when leaving
-                transition={{ duration: 0.4 }}
-                className="p-3 bg-gradient-to-r from-white/10 to-transparent rounded-md border-l-2 border-red-500/50 backdrop-blur-sm"
-              >
-                <div className="flex items-center">
-                  <div className="p-2 bg-red-500/20 rounded-full mr-3">
-                    <Award className="w-5 h-5 text-red-400" />
+          <div className="space-y-2 overflow-y-auto pr-1 scrollbar-hide py-2">
+            <AnimatePresence mode='popLayout'>
+              {winners.map(winner => (
+                <motion.div
+                  key={winner.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                  transition={{ duration: 0.3 }}
+                  className="p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-red-500/30 hover:bg-white/10 transition-all group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 shrink-0 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white/40 group-hover:text-red-500 transition-colors">
+                      <Award className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-bold text-white truncate text-sm">
+                        {winner.user?.name || 'Lucky Player'}
+                      </p>
+                      <p className="text-xs text-white/60 font-medium">
+                        Won <span className="font-extrabold text-red-500 uppercase tracking-tight">{winner.prize?.name || 'a prize'}</span>
+                      </p>
+                    </div>
+                    <div className="text-[10px] text-white/20 font-bold">
+                       JUST NOW
+                    </div>
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-white truncate text-sm">
-                      {winner.user?.name || 'Hidden User'}
-                    </p>
-                    <p className="text-xs text-gray-300">
-                      won <span className="font-bold text-red-300">{winner.prize?.name || 'a prize'}</span>
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        )}
-        
-        {!loading && winners.length === 0 && (
-          <div className="text-center text-gray-500 py-8 text-sm italic">
-            No winners yet... spins incoming!
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            
+            {!loading && winners.length === 0 && (
+              <div className="text-center text-white/40 py-12 text-sm italic py-20 flex flex-col items-center gap-3">
+                 <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-white/10" />
+                 </div>
+                 No winners yet... be the first!
+              </div>
+            )}
           </div>
         )}
         
-        {/* Spacer to ensure the last item isn't fully faded out if the list is short */}
-        <div className="h-12 w-full"></div>
+        {/* Subtle fade at the bottom if content is long */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-slate-900/40 to-transparent pointer-events-none z-10"></div>
+      </div>
+      
+      <div className="p-4 bg-white/5 border-t border-white/10 text-center">
+         <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest leading-none">
+           Real-time updates active
+         </p>
       </div>
     </div>
   );

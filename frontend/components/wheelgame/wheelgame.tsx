@@ -3,7 +3,9 @@
 
 import { useState, useEffect } from "react"; // <--- FIXED: Added these imports
 import dynamic from "next/dynamic";
-import { toast } from "sonner"; // <--- NOTE: change to 'react-hot-toast' if you use that instead
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import WinModal from "../game/win-modal";
 
 // Dynamic import for the wheel to prevent SSR issues
@@ -139,55 +141,76 @@ export default function WheelGame() {
         onClose={() => setIsModalOpen(false)}
         prizeName={winningPrize}
       />
-      <div className="relative flex flex-col items-center justify-center w-full min-h-screen bg-cover bg-center bg-no-repeat">
-        <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 tracking-wide drop-shadow-lg">
-          Lucky Fortune
-        </h1>
-
-        <div className="relative flex items-center justify-center w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl aspect-square">
+      <div className="flex flex-col items-center">
+        <div className="relative flex items-center justify-center w-full max-w-[280px] sm:max-w-md md:max-w-lg lg:max-w-xl aspect-square mb-12 group/wheel">
+          {/* Outer Ring Decoration */}
+          <div className="absolute inset-0 border-[12px] border-slate-900/5 rounded-full z-0 group-hover/wheel:border-slate-900/10 transition-colors duration-500"></div>
+          <div className="absolute -inset-4 border border-slate-200 rounded-full z-0 opacity-50"></div>
+          
           {loading ? (
-            <div className="text-white text-xl">Loading Wheel...</div>
+            <div className="flex flex-col items-center gap-4">
+              <Loader2 className="h-10 w-10 animate-spin text-red-500" />
+              <p className="text-slate-500 font-medium">Loading Wheel...</p>
+            </div>
           ) : (
             <>
               {wheelData.length > 0 && (
-                <Wheel
-                  mustStartSpinning={mustSpin}
-                  prizeNumber={prizeNumber}
-                  data={wheelData}
-                  outerBorderColor="#fff"
-                  outerBorderWidth={5}
-                  innerBorderColor="transparent"
-                  radiusLineColor="#fff"
-                  radiusLineWidth={1}
-                  textColors={["#fff"]}
-                  textDistance={60}
-                  fontSize={18}
-                  fontWeight={500}
-                  backgroundColors={[
-                    "#165FA9", "#239b63", "#F7A415", "#3F297E",
-                    "#BE1080", "#DC0836", "#8A2BE2", "#FF4500"
-                  ]}
-                  onStopSpinning={onStopSpinning}
-                />
+                <div className="relative z-10 scale-95 sm:scale-100">
+                  <Wheel
+                    mustStartSpinning={mustSpin}
+                    prizeNumber={prizeNumber}
+                    data={wheelData}
+                    outerBorderColor="#0f172a" // slate-900
+                    outerBorderWidth={8}
+                    innerBorderColor="#ffffff"
+                    innerRadius={15}
+                    radiusLineColor="#ffffff"
+                    radiusLineWidth={2}
+                    textColors={["#ffffff"]}
+                    textDistance={65}
+                    fontSize={16}
+                    fontWeight={700}
+                    backgroundColors={[
+                      "#e11d48", // red-600
+                      "#1e293b", // slate-800
+                      "#f59e0b", // amber-500
+                      "#be123c", // rose-700
+                      "#334155", // slate-700
+                      "#d97706", // amber-600
+                    ]}
+                    onStopSpinning={onStopSpinning}
+                  />
+                </div>
               )}
+              
+              {/* Central Spin Button */}
               <button
                 onClick={handleSpinClick}
                 disabled={spinning || loading}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] bg-white text-gray-800 font-semibold rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg active:scale-95 transition z-10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] bg-white text-slate-900 font-black rounded-full w-14 h-14 sm:w-20 sm:h-20 shadow-[0_0_30px_rgba(0,0,0,0.15)] active:scale-90 transition-all z-20 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center border-4 border-slate-900 group/btn"
               >
-                {spinning ? "..." : "SPIN"}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-4 h-6 bg-slate-900 clip-triangle"></div>
+                {spinning ? (
+                   <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
+                ) : (
+                  <span className="text-xs sm:text-sm tracking-tighter group-hover/btn:scale-110 transition-transform">SPIN</span>
+                )}
               </button>
             </>
           )}
         </div>
 
-        <button
-          onClick={handleSpinClick}
-          disabled={spinning || loading}
-          className="mt-8 px-6 py-2 sm:px-8 sm:py-3 bg-red-500 hover:bg-red-700 text-white font-semibold rounded-md shadow-md transition-transform hover:-translate-y-1 text-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {spinning ? "Spinning..." : "SPIN AGAIN"}
-        </button>
+        <div className="flex flex-col items-center gap-4">
+          <Button
+            onClick={handleSpinClick}
+            disabled={spinning || loading}
+            size="lg"
+            className="bg-red-600 hover:bg-red-500 text-white font-bold px-12 py-7 h-auto text-xl rounded-2xl shadow-xl shadow-red-500/20 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+          >
+            {spinning ? "Spinning..." : "SPIN NOW"}
+          </Button>
+          <p className="text-white/40 text-sm font-medium uppercase tracking-widest">1 Token per spin</p>
+        </div>
       </div>
     </>
   );
