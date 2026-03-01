@@ -19,7 +19,6 @@ Admin/dist/
 Admin/build/
 Admin/.next/
 server/dist/
-Admin/next.config.mjs
 
 # OS / editor junk
 .DS_Store
