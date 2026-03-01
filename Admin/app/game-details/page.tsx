@@ -248,7 +248,7 @@ export default function GameDetailsPage() {
           </CardHeader>
           <CardContent>
             {entries.length > 0 ? (
-              <GameEntriesTable entries={entries} winningNumber={gameToShow.winning_number ?? undefined} />
+              <GameEntriesTable entries={entries} winningNumber={gameToShow.winning_number} />
             ) : (
               <p className="text-center text-muted-foreground">No entries for this game yet.</p>
             )}

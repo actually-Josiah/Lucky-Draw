@@ -4,7 +4,7 @@ import type { GameEntry } from "@/lib/mock-data"
 
 interface GameEntriesTableProps {
   entries: GameEntry[]
-  winningNumber?: number
+  winningNumber?: number | null
 }
 
 export function GameEntriesTable({ entries, winningNumber }: GameEntriesTableProps) {
@@ -27,7 +27,7 @@ export function GameEntriesTable({ entries, winningNumber }: GameEntriesTablePro
                     key={idx}
                     variant="secondary"
                     className={
-                      winningNumber !== undefined && num === winningNumber
+                      winningNumber !== undefined && winningNumber !== null && num === winningNumber
                         ? "bg-accent text-accent-foreground"
                         : "bg-secondary text-secondary-foreground"
                     }
